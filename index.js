@@ -5,6 +5,9 @@ const cookieSession = require("cookie-session");
 const db = require("./db.js");
 const bcrypt = require("./bcrypt");
 const csurf = require("csurf");
+const cryptoRandomString = require("crypto-random-string");
+const ses = require("./ses");
+const { response } = require("express");
 
 app.use(express.json());
 
@@ -35,6 +38,70 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
+
+app.post("/password/reset/start", (req, res) => {
+    const { email } = req.body;
+    db.getUserData(email).then(({ rows }) => {
+        if (rows[0]) {
+            const secretCode = cryptoRandomString({
+                length: 6,
+            });
+            db.addCode(email, secretCode)
+                .then(() => {
+                    const subject = "Your verification code";
+                    const message = `Welcome, 
+                    Please use the following code for resetting your password: ${secretCode}`;
+                    return ses.sendEmail(email, message, subject);
+                })
+                .then(() => {
+                    res.json({ success: true });
+                })
+                .catch((err) => {
+                    console.log("error while adding secret code", err);
+                    res.json({
+                        errorMessage:
+                            "Oops, something went wrong, please try again",
+                    });
+                });
+        } else {
+            res.json({
+                errorMessage:
+                    "Sorry, given e-mail is not registered in our service",
+            });
+        }
+    });
+});
+
+app.post("/password/reset/verify", (req, res) => {
+    console.log(req.body);
+    const { email, code, password } = req.body;
+    db.getCode(email).then(({ rows }) => {
+        if (code == rows[0].code) {
+            console.log("match");
+            bcrypt
+                .hash(password)
+                .then((hash) => {
+                    console.log(hash);
+                    return db.updatePassword(hash, email);
+                })
+                .then(() => {
+                    res.json({ success: true });
+                })
+                .catch((err) => {
+                    console.log("error while updating a password", err);
+                    res.json({
+                        errorMessage:
+                            "Sorry, something went wrong, please try again",
+                    });
+                });
+        } else {
+            res.json({
+                errorMessage:
+                    "Sorry, but the verification code does not match or has expired",
+            });
+        }
+    });
+});
 
 app.post("/register", (req, res) => {
     const { first, last, email, password } = req.body;

@@ -78,7 +78,7 @@ export default class Registration extends React.Component {
                 ></input>
                 <button
                     style={{
-                        "background-color": "teal",
+                        backgroundColor: "teal",
                         color: "white",
                     }}
                     className="input-registration"

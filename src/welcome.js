@@ -11,7 +11,7 @@ export default function Welcome() {
                 <h1 className="welcome-title">
                     Plenty of Catfish
                     <br />
-                    <p style={{ "font-size": "2rem" }}>
+                    <p style={{ fontSize: "2rem" }}>
                         Social network like every other
                     </p>
                 </h1>

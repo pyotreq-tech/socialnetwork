@@ -7,8 +7,8 @@ export default class ResetPassword extends React.Component {
         super();
         this.state = {
             resetPassword: 0,
+            errorMessage: null,
         };
-        // this.handleChange = this.handleChange.bind(this);
     }
 
     getCurrentState() {
@@ -26,11 +26,11 @@ export default class ResetPassword extends React.Component {
                     ></input>
                     <button
                         style={{
-                            "background-color": "teal",
+                            backgroundColor: "teal",
                             color: "white",
                         }}
                         className="input-registration"
-                        onClick={() => this.submit()}
+                        onClick={() => this.submit("/password/reset/start")}
                     >
                         Submit
                     </button>
@@ -46,11 +46,11 @@ export default class ResetPassword extends React.Component {
                         onChange={(e) => this.handleChange(e)}
                         className="input-registration"
                         style={{
-                            "margin-bottom": "0",
+                            marginBottom: "0",
                         }}
                     ></input>
 
-                    <h2>Please enter the code you received:</h2>
+                    <h2>Please enter a new password:</h2>
                     <input
                         name="password"
                         placeholder="password..."
@@ -60,11 +60,11 @@ export default class ResetPassword extends React.Component {
 
                     <button
                         style={{
-                            "background-color": "teal",
+                            backgroundColor: "teal",
                             color: "white",
                         }}
                         className="input-registration"
-                        onClick={() => this.submit()}
+                        onClick={() => this.submit("/password/reset/verify")}
                     >
                         Submit
                     </button>
@@ -95,58 +95,36 @@ export default class ResetPassword extends React.Component {
         );
     }
 
-    // submit() {
-    //     console.log("about to submit!!!");
-    //     axios
-    //         .post("/login", this.state)
-    //         .then((response) => {
-    //             console.log(response);
-    //             if (response.data.success) {
-    //                 //then we want to redirect the user to our social network
-    //                 location.replace("/");
-    //             } else {
-    //                 this.setState({
-    //                     error: true,
-    //                 });
-    //             }
-    //         })
-    //         .catch((e) => {
-    //             console.log(e);
-    //         });
-    // }
+    submit(path) {
+        console.log(path);
+        axios
+            .post(`${path}`, this.state)
+            .then((response) => {
+                console.log("response", response.data);
+                if (response.data.success) {
+                    this.setState({
+                        resetPassword: this.state.resetPassword + 1,
+                        errorMessage: null,
+                    });
+                } else {
+                    this.setState({
+                        errorMessage: response.data.errorMessage,
+                    });
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
 
     render() {
-        console.log("this.state.error: ", this.state.error);
         return (
             <div className="flex-col registration-div">
                 <h1>Reset your password:</h1>
-                {this.state.error && (
-                    <div className="error">Oops, something went wrong</div>
+                {this.state.errorMessage && (
+                    <div className="error">{this.state.errorMessage}</div>
                 )}
                 {this.getCurrentState()}
-                {/* <input
-                    name="email"
-                    placeholder="email..."
-                    onChange={(e) => this.handleChange(e)}
-                    className="input-registration"
-                ></input>
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="password..."
-                    onChange={(e) => this.handleChange(e)}
-                    className="input-registration"
-                ></input>
-                <button
-                    style={{
-                        "background-color": "teal",
-                        color: "white",
-                    }}
-                    className="input-registration"
-                    onClick={() => this.submit()}
-                >
-                    Sign In
-                </button> */}
                 <p>
                     Do not have an account yet? <Link to="/">Register</Link>
                 </p>
