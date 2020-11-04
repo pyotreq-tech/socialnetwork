@@ -13,3 +13,7 @@ exports.addUser = (first, last, email, password) => {
         [first, last, email, password]
     );
 };
+
+exports.getUserData = (email) => {
+    return db.query(`SELECT * FROM users WHERE email = $1`, [email]);
+};

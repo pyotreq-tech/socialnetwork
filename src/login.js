@@ -2,7 +2,7 @@ import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 
-export default class Registration extends React.Component {
+export default class Login extends React.Component {
     constructor() {
         super();
         this.state = {};
@@ -24,7 +24,7 @@ export default class Registration extends React.Component {
     submit() {
         console.log("about to submit!!!");
         axios
-            .post("/register", this.state)
+            .post("/login", this.state)
             .then((response) => {
                 console.log(response);
                 if (response.data.success) {
@@ -45,34 +45,22 @@ export default class Registration extends React.Component {
         console.log("this.state.error: ", this.state.error);
         return (
             <div className="flex-col registration-div">
-                <h1>Join us now!</h1>
+                <h1>Sign in:</h1>
                 {this.state.error && (
                     <div className="error">Oops, something went wrong</div>
                 )}
 
                 <input
-                    name="first"
-                    placeholder="first name..."
+                    name="email"
+                    placeholder="email..."
                     onChange={(e) => this.handleChange(e)}
                     className="input-registration"
                     // onChange={this.handleChange}
                 ></input>
                 <input
-                    name="last"
-                    placeholder="last name..."
-                    onChange={(e) => this.handleChange(e)}
-                    className="input-registration"
-                ></input>
-                <input
-                    name="email"
-                    placeholder="email..."
-                    onChange={(e) => this.handleChange(e)}
-                    className="input-registration"
-                ></input>
-                <input
                     name="password"
-                    placeholder="password..."
                     type="password"
+                    placeholder="password..."
                     onChange={(e) => this.handleChange(e)}
                     className="input-registration"
                 ></input>
@@ -84,10 +72,10 @@ export default class Registration extends React.Component {
                     className="input-registration"
                     onClick={() => this.submit()}
                 >
-                    Register
+                    Sign In
                 </button>
                 <p>
-                    Already a member? <Link to="/login">Log in</Link>
+                    Do not have an account yet? <Link to="/">Register</Link>
                 </p>
             </div>
         );
