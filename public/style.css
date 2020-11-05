@@ -66,3 +66,30 @@ body {
 .logo {
     font-size: 3rem;
 }
+
+/* App styling: */
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+}
+
+.app-navbar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+.app-body {
+    display: flex;
+    flex-direction: row;
+}
+.app-left {
+    display: flex;
+    flex-direction: column;
+}
+.app-right {
+    display: flex;
+    flex-direction: column;
+}

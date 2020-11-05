@@ -22,7 +22,7 @@ export default class Login extends React.Component {
     }
 
     submit() {
-        console.log("about to submit!!!");
+        console.log("about to submit!!!", this.state);
         axios
             .post("/login", this.state)
             .then((response) => {
@@ -66,7 +66,7 @@ export default class Login extends React.Component {
                 ></input>
                 <button
                     style={{
-                        "background-color": "teal",
+                        backgroundColor: "teal",
                         color: "white",
                     }}
                     className="input-registration"

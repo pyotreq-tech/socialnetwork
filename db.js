@@ -27,6 +27,9 @@ exports.addCode = (email, code) => {
 exports.getUserData = (email) => {
     return db.query(`SELECT * FROM users WHERE email = $1`, [email]);
 };
+exports.getUserDataById = (id) => {
+    return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+};
 
 exports.updatePassword = (hash, email) => {
     return db.query(`UPDATE users SET password = $1 WHERE email = $2`, [
@@ -44,5 +47,14 @@ exports.getCode = (email) => {
         LIMIT 1;
         `,
         [email]
+    );
+};
+
+exports.updateImage = (profileimage, id) => {
+    return db.query(
+        `UPDATE users SET profileimage = $1 WHERE id = $2 RETURNING profileimage;
+
+    `,
+        [profileimage, id]
     );
 };

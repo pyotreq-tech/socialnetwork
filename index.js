@@ -7,7 +7,10 @@ const bcrypt = require("./bcrypt");
 const csurf = require("csurf");
 const cryptoRandomString = require("crypto-random-string");
 const ses = require("./ses");
-const { response } = require("express");
+const uidSafe = require("uid-safe");
+const multer = require("multer");
+const path = require("path");
+const s3 = require("./s3");
 
 app.use(express.json());
 
@@ -38,6 +41,63 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
+
+app.post("/images", uploader.single("file"), s3.upload, (req, res) => {
+    if (req.file) {
+        const { id } = req.body;
+        const { filename } = req.file;
+        const url = `https://s3.amazonaws.com/spicedling/${filename}`;
+        console.log("url from post image:", url);
+        console.log("id from post image:", id);
+        db.updateImage(url, id)
+            .then(({ rows }) => {
+                rows = rows[0];
+                console.log("image url after upload:", rows);
+                res.json(rows);
+            })
+            .catch((err) => {
+                console.log("error in posting image: ", err);
+                res.json({
+                    success: false,
+                });
+            });
+    } else {
+        res.json({
+            success: false,
+        });
+    }
+});
+
+app.get("/users", (req, res) => {
+    const { userId } = req.session;
+    // console.log("users route hit");
+    console.log(userId);
+    db.getUserDataById(userId)
+        .then(({ rows }) => {
+            res.json(rows[0]);
+        })
+        .catch((err) => {
+            console.log("error in /get users: ", err);
+        });
+});
 
 app.post("/password/reset/start", (req, res) => {
     const { email } = req.body;
@@ -125,9 +185,10 @@ app.post("/login", (req, res) => {
     const { email, password } = req.body;
     db.getUserData(email)
         .then(({ rows }) => {
+            console.log(rows);
             const { id } = rows[0];
             const hash = rows[0].password;
-            return bcrypt
+            bcrypt
                 .compare(password, hash)
                 .then((result) => {
                     if (result) {
