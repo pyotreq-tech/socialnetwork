@@ -1,5 +1,5 @@
-import { text } from "express";
 import React, { Component } from "react";
+import { $CombinedState } from "redux";
 import axios from "./axios";
 
 export default class BioEditor extends Component {
@@ -11,20 +11,18 @@ export default class BioEditor extends Component {
         };
     }
 
-    // componentDidMount() {
-    //     const textarea = document.getElementsByTagName("textarea");
-    //     console.log("textarea: ", textarea);
-    // }
-    componentDidMount() {
-        console.log("BioEditor mounted");
-        // console.log("this.props: ", this.props);
-    }
+    // now check how to make it so the textarea is prepopulated
 
-    textareaToggle() {
+    textareaToggle(e) {
         console.log("works toggle");
         this.setState({
             editorIsVisible: !this.state.editorIsVisible,
         });
+        console.log(e);
+        let textarea = document.getElementsByTagName("sdfdfs");
+        console.log(textarea);
+        // console.log("Mounted bio: ", this.props.bio);
+        // textarea.value = this.props.bio;
     }
 
     handleChange(e) {
@@ -54,6 +52,7 @@ export default class BioEditor extends Component {
                     bioDraft: response.data.bio,
                 });
                 this.updateBioInApp(response.data.bio);
+                this.textareaToggle();
             })
             .catch((e) => {
                 console.log(e);
@@ -68,8 +67,11 @@ export default class BioEditor extends Component {
                 {this.state.editorIsVisible && (
                     <div>
                         <textarea
+                            id="textarea"
                             name="bio"
                             onChange={(e) => this.handleChange(e)}
+                            // need to work or prepopulation the textfield
+                            value={this.props.bio}
                         />
                     </div>
                 )}
