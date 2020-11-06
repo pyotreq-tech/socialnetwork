@@ -11,7 +11,7 @@ export default class App extends React.Component {
         // this we will pass from axios:
         this.state = {
             uploaderIsVisible: false,
-            profileComponent: false,
+            profileComponent: true,
         };
 
         // bind functions here
@@ -19,17 +19,19 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
+        // console.log(this.state);
         console.log("App just mounted");
         axios
             .get("/users", this.state)
             .then(({ data }) => {
-                const { email, first, id, last, profileimage } = data;
+                const { email, first, id, last, profileimage, bio } = data;
                 this.setState({
                     email: email,
                     first: first,
                     id: id,
                     last: last,
                     profileImage: profileimage,
+                    bio: bio,
                 });
                 console.log(this.state);
             })
@@ -51,6 +53,12 @@ export default class App extends React.Component {
         this.setState({ profileImage: arg });
         console.log("toggleComponent: ");
         this.toggleComponent("uploaderIsVisible");
+    }
+    updateBio(arg) {
+        console.log(arg);
+        this.setState({ bio: arg });
+        // console.log("toggleComponent: ");
+        // this.toggleComponent("uploaderIsVisible");
     }
 
     render() {
@@ -77,6 +85,16 @@ export default class App extends React.Component {
                         last={this.state.last}
                         toggleComponent={(arg) => this.toggleComponent(arg)}
                     />
+                    <a
+                        href="/logout"
+                        style={{
+                            textDecoration: "none",
+                        }}
+                    >
+                        <div className="navbar-icon">
+                            <i className="fas fa-sign-out-alt"></i>
+                        </div>
+                    </a>
                 </div>
                 <div className="app-body">
                     <div className="app-left">
@@ -102,6 +120,8 @@ export default class App extends React.Component {
                                 first={this.state.first}
                                 last={this.state.last}
                                 bio={this.state.bio}
+                                id={this.state.id}
+                                updateBio={(arg) => this.updateBio(arg)}
                             />
                         )}
 

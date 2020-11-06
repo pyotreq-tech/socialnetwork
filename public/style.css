@@ -86,13 +86,17 @@ body {
     background-color: white;
     display: flex;
     flex-direction: row;
+    flex-flow: row wrap;
+
     width: 100%;
     justify-content: space-around;
     align-items: center;
+    box-shadow: 0 0.1rem 0 rgba(0, 0, 0, 0.1);
 }
 .app-body {
     display: flex;
     flex-direction: row;
+    flex-flow: row wrap;
 }
 .app-left {
     width: 500px;
@@ -110,7 +114,7 @@ body {
     border-radius: 20px;
     margin: 10px 20px;
     padding: 20px;
-    box-shadow: 0 0.2rem 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 /* Navbar styling: */
@@ -123,4 +127,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1.4rem;
+}
+
+a {
+    color: black;
 }

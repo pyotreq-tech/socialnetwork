@@ -85,6 +85,23 @@ app.post("/images", uploader.single("file"), s3.upload, (req, res) => {
         });
     }
 });
+app.post("/bio", (req, res) => {
+    const { id, bio } = req.body;
+    console.log(req.body);
+
+    db.updateBio(bio, id)
+        .then(({ rows }) => {
+            rows = rows[0];
+            console.log("image url after upload:", rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("error in posting image: ", err);
+            res.json({
+                success: false,
+            });
+        });
+});
 
 app.get("/users", (req, res) => {
     const { userId } = req.session;
@@ -217,6 +234,10 @@ app.get("/welcome", (req, res) => {
     }
 });
 
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+});
 app.get("*", function (req, res) {
     if (!req.session.userId) {
         res.redirect("/welcome");
