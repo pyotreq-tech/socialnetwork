@@ -11,6 +11,15 @@ export default class BioEditor extends Component {
         };
     }
 
+    // componentDidMount() {
+    //     const textarea = document.getElementsByTagName("textarea");
+    //     console.log("textarea: ", textarea);
+    // }
+    componentDidMount() {
+        console.log("BioEditor mounted");
+        // console.log("this.props: ", this.props);
+    }
+
     textareaToggle() {
         console.log("works toggle");
         this.setState({
@@ -30,30 +39,25 @@ export default class BioEditor extends Component {
         );
     }
 
+    updateBioInApp(arg) {
+        console.log("console.log in updateBio", arg);
+        this.props.updateBio(arg);
+    }
+
     submitBio() {
         console.log("about to submit!!!", this.state);
         axios
             .post("/bio", { bio: this.state.bioDraft, id: this.props.id })
             .then((response) => {
-                console.log(response);
-                if (response.data.success) {
-                    this.setState({
-                        bioDraft: response.data.bio,
-                    });
-                    updateBioInApp();
-                } else {
-                    this.setState({
-                        error: true,
-                    });
-                }
+                console.log(response.data);
+                this.setState({
+                    bioDraft: response.data.bio,
+                });
+                this.updateBioInApp(response.data.bio);
             })
             .catch((e) => {
                 console.log(e);
             });
-    }
-
-    updateBioInApp() {
-        this.props.updateBio("lol");
     }
 
     render() {
