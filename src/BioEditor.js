@@ -17,6 +17,7 @@ export default class BioEditor extends Component {
         console.log("works toggle");
         this.setState({
             editorIsVisible: !this.state.editorIsVisible,
+            bioDraft: this.props.bio,
         });
         console.log(e);
         let textarea = document.getElementsByTagName("sdfdfs");
@@ -71,7 +72,7 @@ export default class BioEditor extends Component {
                             name="bio"
                             onChange={(e) => this.handleChange(e)}
                             // need to work or prepopulation the textfield
-                            value={this.props.bio}
+                            value={this.state.bioDraft}
                         />
                     </div>
                 )}
