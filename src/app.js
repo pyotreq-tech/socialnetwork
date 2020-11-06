@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./logo";
 import Uploader from "./Uploader";
 import ProfilePicture from "./profilepic";
+import Profile from "./profile";
 import axios from "./axios";
 
 export default class App extends React.Component {
@@ -10,11 +11,13 @@ export default class App extends React.Component {
         // this we will pass from axios:
         this.state = {
             uploaderIsVisible: false,
+            profileComponent: false,
         };
 
         // bind functions here
         this.methodInApp = this.methodInApp.bind(this);
     }
+
     componentDidMount() {
         console.log("App just mounted");
         axios
@@ -33,22 +36,23 @@ export default class App extends React.Component {
             .catch((e) => {
                 console.log("error in axios: ", e);
             });
-        // here axios request about logged in user
-        // later setState to store the data in component state
     }
 
-    toggleUploader() {
-        console.log("you want to uploader appear");
+    toggleComponent(arg) {
         this.setState({
-            uploaderIsVisible: !this.state.uploaderIsVisible,
+            uploaderIsVisible: false,
+            profileComponent: false,
+            [arg]: !this.state[arg],
         });
     }
 
     methodInApp(arg) {
         console.log(arg);
         this.setState({ profileImage: arg });
-        this.toggleUploader();
+        console.log("toggleComponent: ");
+        this.toggleComponent("uploaderIsVisible");
     }
+
     render() {
         return (
             <div className="app-container">
@@ -60,20 +64,48 @@ export default class App extends React.Component {
                         {!this.state.uploaderIsVisible &&
                             "Welcome to our network"}
                     </h2>
+                    <div
+                        className="navbar-icon"
+                        onClick={() => this.toggleComponent("profileComponent")}
+                    >
+                        <i className="fas fa-user"></i>
+                    </div>
+
                     <ProfilePicture
                         profileImage={this.state.profileImage}
                         first={this.state.first}
                         last={this.state.last}
-                        toggleUploader={() => this.toggleUploader()}
+                        toggleComponent={(arg) => this.toggleComponent(arg)}
                     />
                 </div>
                 <div className="app-body">
-                    <div className="app-left">sd fdsdfs2342v342 234v4</div>
+                    <div className="app-left">
+                        <div className="section">
+                            sd fdsdfs2sdf dsf bsdfjkdsh kjhsdgg djh jkgsh ldfjhg
+                            lsdjfhgk hsdfkjhg dsfjkgh lkkfdj hlsfdgf jkshdhf jhd
+                            342v342 234v4
+                        </div>
+                        <div className="section">
+                            sd fdsdfs2sdf fgo sdfogiu fdoiiugdfsoiug oisdfugoi
+                            dufsoigiu sdfoigu ofdiug ofdiug dsf bsdfjkdsh kjhsdf
+                            jkshdhf jhd 342v342 234v4
+                        </div>
+                        <div className="section">
+                            sd fdsdfs2sdf dsf bsdfjkdsh kjhsdf jkshdhf jhd
+                            342v342 234v4
+                        </div>
+                    </div>
                     <div className="app-right">
-                        <h1>Hey I am your App :D</h1>
+                        {this.state.profileComponent && (
+                            <Profile
+                                profileImage={this.state.profileImage}
+                                first={this.state.first}
+                                last={this.state.last}
+                                bio={this.state.bio}
+                            />
+                        )}
 
                         {this.state.uploaderIsVisible && (
-                            // we can also write this without binding:
                             <Uploader
                                 methodInApp={this.methodInApp}
                                 profileImage={this.state.profileImage}

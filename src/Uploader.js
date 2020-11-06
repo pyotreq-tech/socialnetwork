@@ -4,7 +4,9 @@ import axios from "./axios";
 export default class Uploader extends React.Component {
     constructor(props) {
         super();
-        this.state = {};
+        this.state = {
+            url: props.profileImage,
+        };
     }
 
     componentDidMount() {
@@ -18,9 +20,12 @@ export default class Uploader extends React.Component {
 
     handleChange(e) {
         console.log("e.target.value: ", e.target.value);
+        console.log("img path:", e);
         this.setState(
             {
                 [e.target.name]: e.target.files[0],
+                //think how to make temporarily file to be displayed after change
+                url: e.target.files[0].name,
             },
             () => {
                 console.log("this.state: ", this.state);
@@ -57,10 +62,10 @@ export default class Uploader extends React.Component {
 
     render() {
         return (
-            <>
+            <div className="section">
                 <h1>Uploader</h1>
                 <img
-                    src={this.props.profileImage || "/empty-image.jpg"}
+                    src={this.state.url || "/empty-image.jpg"}
                     alt={this.props.first + " " + this.props.last}
                 />
 
@@ -81,7 +86,7 @@ export default class Uploader extends React.Component {
                 >
                     Upload
                 </button>
-            </>
+            </div>
         );
     }
 }
