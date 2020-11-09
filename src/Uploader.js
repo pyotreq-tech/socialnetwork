@@ -19,45 +19,19 @@ export default class Uploader extends React.Component {
     }
 
     handleChange(e) {
-        return new Promise((resolve, reject) => {
-            var reader = new FileReader();
-            reader.onload = function () {
-                resolve(reader.result);
-            };
-            reader.readAsText(e.target.files[0]);
-            this.setState({
-                [e.target.name]: e.target.files[0],
-            });
-        })
-            .then((res) => {
-                console.log("result of my promise: ", res);
-                this.setState({ url: res });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        // reader.onload = function () {
-        //     var dataURL = reader.result;
-        //     console.log(dataURL);
-        // };
-        // reader.readAsDataURL(e.target.files[0]);
-        // this.setState({
-        //     [e.target.name]: e.target.files[0],
-        //     // url: output.src,
-        // });
-        // reader.onload = function () {
-        //     var dataURL = reader.result;
-        //     var output = document.getElementById("output");
-        //     output.src = dataURL;
-        //     console.log("cos tam", output.src);
-        // };
-        // reader.readAsDataURL(e.target.files[0], (err, res) => {
-        //     console.log("odpowiedz z funkcji:", res);
-        // });
-        // this.setState({
-        //     [e.target.name]: e.target.files[0],
-        //     url: output.src,
-        // });
+        var reader = new FileReader();
+
+        reader.onload = function () {
+            var dataURL = reader.result;
+            var output = document.getElementById("output");
+            output.src = dataURL;
+        };
+
+        reader.readAsDataURL(e.target.files[0]);
+
+        this.setState({
+            [e.target.name]: e.target.files[0],
+        });
     }
 
     submit() {
@@ -94,6 +68,7 @@ export default class Uploader extends React.Component {
             <div className="section">
                 <h1>Uploader</h1>
                 <img
+                    id="output"
                     src={this.state.url || "/empty-image.jpg"}
                     alt={this.props.first + " " + this.props.last}
                 />

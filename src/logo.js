@@ -2,14 +2,7 @@ import React from "react";
 
 export default function Logo() {
     return (
-        <div
-            className="navbar-icon"
-            style={{
-                backgroundImage:
-                    "linear-gradient(to top, teal, lightsteelblue)",
-                color: "white",
-            }}
-        >
+        <div className="navbar-icon">
             <i className="fas fa-fish logo"></i>
         </div>
     );

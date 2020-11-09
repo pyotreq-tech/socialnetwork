@@ -31,6 +31,7 @@ export default class OtherProfile extends React.Component {
         return (
             <div className="section">
                 <img src={this.state.profileimage || "/empty-image.jpg"} />
+
                 <h3>
                     {this.state.first} {this.state.last}
                 </h3>
