@@ -30,6 +30,12 @@ exports.getUserData = (email) => {
 exports.getUserDataById = (id) => {
     return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
 };
+exports.getOtherUserDataById = (id) => {
+    return db.query(
+        `SELECT first, last, profileimage, bio, id FROM users WHERE id = $1`,
+        [id]
+    );
+};
 
 exports.updatePassword = (hash, email) => {
     return db.query(`UPDATE users SET password = $1 WHERE email = $2`, [

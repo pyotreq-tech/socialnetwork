@@ -116,6 +116,26 @@ app.get("/users", (req, res) => {
         });
 });
 
+app.get("/api/user/:id", async (req, res) => {
+    const { id } = req.params;
+    const { userId } = req.session;
+    if (id == userId) {
+        res.json({ denied: true });
+    } else {
+        try {
+            const { rows } = await db.getOtherUserDataById(id);
+            if (rows[0]) {
+                res.json(rows[0]);
+            } else {
+                res.json({ denied: true });
+            }
+        } catch {
+            console.log("error in api user");
+            res.json({ denied: true });
+        }
+    }
+});
+
 app.post("/password/reset/start", (req, res) => {
     const { email } = req.body;
     db.getUserData(email).then(({ rows }) => {
@@ -239,6 +259,7 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 });
 app.get("*", function (req, res) {
+    // console.log("LOLLLL");
     if (!req.session.userId) {
         res.redirect("/welcome");
     } else {

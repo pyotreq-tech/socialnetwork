@@ -4,23 +4,22 @@ import Uploader from "./Uploader";
 import ProfilePicture from "./profilepic";
 import Profile from "./profile";
 import axios from "./axios";
+import { BrowserRouter, Route } from "react-router-dom";
+import OtherProfile from "./OtherProfile";
+import { Link } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor() {
         super();
-        // this we will pass from axios:
+
         this.state = {
             uploaderIsVisible: false,
-            profileComponent: true,
+            // profileComponent: false,
         };
-
-        // bind functions here
         this.methodInApp = this.methodInApp.bind(this);
     }
 
     componentDidMount() {
-        // console.log(this.state);
-        console.log("App just mounted");
         axios
             .get("/users", this.state)
             .then(({ data }) => {
@@ -33,7 +32,6 @@ export default class App extends React.Component {
                     profileImage: profileimage,
                     bio: bio,
                 });
-                console.log(this.state);
             })
             .catch((e) => {
                 console.log("error in axios: ", e);
@@ -49,100 +47,118 @@ export default class App extends React.Component {
     }
 
     methodInApp(arg) {
-        console.log(arg);
         this.setState({ profileImage: arg });
-        console.log("toggleComponent: ");
         this.toggleComponent("uploaderIsVisible");
     }
     updateBio(arg) {
-        console.log(arg);
         this.setState({ bio: arg });
-        // console.log("toggleComponent: ");
-        // this.toggleComponent("uploaderIsVisible");
     }
 
     render() {
         return (
-            <div className="app-container">
-                <div className="app-navbar">
-                    <Logo />
-                    <h2>
-                        {this.state.uploaderIsVisible &&
-                            "Upload your profile picture"}
-                        {!this.state.uploaderIsVisible &&
-                            "Welcome to our network"}
-                    </h2>
-                    <div
-                        className="navbar-icon"
-                        onClick={() => this.toggleComponent("profileComponent")}
-                    >
-                        <i className="fas fa-user"></i>
-                    </div>
+            <BrowserRouter>
+                <div className="app-container">
+                    <div className="app-navbar">
+                        <Logo />
+                        <h2>
+                            {this.state.uploaderIsVisible &&
+                                "Upload your profile picture"}
+                            {!this.state.uploaderIsVisible &&
+                                "Welcome to our network"}
+                        </h2>
 
-                    <ProfilePicture
-                        profileImage={this.state.profileImage}
-                        first={this.state.first}
-                        last={this.state.last}
-                        toggleComponent={(arg) => this.toggleComponent(arg)}
-                    />
-                    <a
-                        href="/logout"
-                        style={{
-                            textDecoration: "none",
-                        }}
-                    >
-                        <div className="navbar-icon">
-                            <i className="fas fa-sign-out-alt"></i>
-                        </div>
-                    </a>
-                </div>
-                <div className="app-body">
-                    <div className="app-left">
-                        <div className="section">
-                            sd fdsdfs2sdf dsf bsdfjkdsh kjhsdgg djh jkgsh ldfjhg
-                            lsdjfhgk hsdfkjhg dsfjkgh lkkfdj hlsfdgf jkshdhf jhd
-                            342v342 234v4
-                        </div>
-                        <div className="section">
-                            sd fdsdfs2sdf fgo sdfogiu fdoiiugdfsoiug oisdfugoi
-                            dufsoigiu sdfoigu ofdiug ofdiug dsf bsdfjkdsh kjhsdf
-                            jkshdhf jhd 342v342 234v4
-                        </div>
-                        <div className="section">
-                            sd fdsdfs2sdf dsf bsdfjkdsh kjhsdf jkshdhf jhd
-                            342v342 234v4
-                        </div>
-                    </div>
-                    <div className="app-right">
-                        {this.state.profileComponent && (
-                            <Profile
+                        <Link to="/">
+                            <div
+                                className="navbar-icon"
+                                // onClick={() => this.toggleComponent("profileComponent")}
+                            >
+                                <i className="fas fa-user"></i>
+                            </div>
+                        </Link>
+
+                        <Link to="/uploader">
+                            <ProfilePicture
                                 profileImage={this.state.profileImage}
                                 first={this.state.first}
                                 last={this.state.last}
-                                bio={this.state.bio}
-                                id={this.state.id}
-                                updateBio={(arg) => this.updateBio(arg)}
+                                toggleComponent={(arg) =>
+                                    this.toggleComponent(arg)
+                                }
                             />
-                        )}
+                        </Link>
 
-                        {this.state.uploaderIsVisible && (
-                            <Uploader
-                                methodInApp={this.methodInApp}
-                                profileImage={this.state.profileImage}
-                                first={this.state.first}
-                                last={this.state.last}
-                                id={this.state.id}
+                        <a
+                            href="/logout"
+                            style={{
+                                textDecoration: "none",
+                            }}
+                        >
+                            <div className="navbar-icon">
+                                <i className="fas fa-sign-out-alt"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div className="app-body">
+                        <div className="app-left">
+                            <div className="section">
+                                sd fdsdfs2sdf dsf bsdfjkdsh kjhsdgg djh jkgsh
+                                ldfjhg lsdjfhgk hsdfkjhg dsfjkgh lkkfdj hlsfdgf
+                                jkshdhf jhd 342v342 234v4
+                            </div>
+                            <div className="section">
+                                sd fdsdfs2sdf fgo sdfogiu fdoiiugdfsoiug
+                                oisdfugoi dufsoigiu sdfoigu ofdiug ofdiug dsf
+                                bsdfjkdsh kjhsdf jkshdhf jhd 342v342 234v4
+                            </div>
+                            <div className="section">
+                                sd fdsdfs2sdf dsf bsdfjkdsh kjhsdf jkshdhf jhd
+                                342v342 234v4
+                            </div>
+                        </div>
+                        <div className="app-right">
+                            {/* {this.state.profileComponent && ( */}
+                            <Route
+                                exact
+                                path="/"
+                                render={() => (
+                                    <Profile
+                                        profileImage={this.state.profileImage}
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        bio={this.state.bio}
+                                        id={this.state.id}
+                                        updateBio={(arg) => this.updateBio(arg)}
+                                    />
+                                )}
                             />
-                            // binding is more performant
-                            // <Uploader
-                            //     methodInApp={() => {
-                            //         this.methodInApp();
-                            //     }}
-                            // />
-                        )}
+
+                            <Route
+                                path="/user/:id"
+                                render={(props) => (
+                                    <OtherProfile
+                                        key={props.url}
+                                        match={props.match}
+                                        history={props.history}
+                                    />
+                                )}
+                            />
+
+                            <Route
+                                path="/uploader"
+                                render={() => (
+                                    <Uploader
+                                        methodInApp={this.methodInApp}
+                                        profileImage={this.state.profileImage}
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        id={this.state.id}
+                                    />
+                                )}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </BrowserRouter>
         );
     }
 }

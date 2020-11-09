@@ -19,18 +19,45 @@ export default class Uploader extends React.Component {
     }
 
     handleChange(e) {
-        console.log("e.target.value: ", e.target.value);
-        console.log("img path:", e);
-        this.setState(
-            {
+        return new Promise((resolve, reject) => {
+            var reader = new FileReader();
+            reader.onload = function () {
+                resolve(reader.result);
+            };
+            reader.readAsText(e.target.files[0]);
+            this.setState({
                 [e.target.name]: e.target.files[0],
-                //think how to make temporarily file to be displayed after change
-                url: e.target.files[0].name,
-            },
-            () => {
-                console.log("this.state: ", this.state);
-            }
-        );
+            });
+        })
+            .then((res) => {
+                console.log("result of my promise: ", res);
+                this.setState({ url: res });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        // reader.onload = function () {
+        //     var dataURL = reader.result;
+        //     console.log(dataURL);
+        // };
+        // reader.readAsDataURL(e.target.files[0]);
+        // this.setState({
+        //     [e.target.name]: e.target.files[0],
+        //     // url: output.src,
+        // });
+        // reader.onload = function () {
+        //     var dataURL = reader.result;
+        //     var output = document.getElementById("output");
+        //     output.src = dataURL;
+        //     console.log("cos tam", output.src);
+        // };
+        // reader.readAsDataURL(e.target.files[0], (err, res) => {
+        //     console.log("odpowiedz z funkcji:", res);
+        // });
+        // this.setState({
+        //     [e.target.name]: e.target.files[0],
+        //     url: output.src,
+        // });
     }
 
     submit() {
@@ -38,6 +65,8 @@ export default class Uploader extends React.Component {
         var formData = new FormData();
         formData.append("file", this.state.file);
         formData.append("id", this.props.id);
+        console.log("file: ", this.state.file);
+        console.log("id: ", this.props.id);
         console.log("formData: ", formData);
 
         axios
