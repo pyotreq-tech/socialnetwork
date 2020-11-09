@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "./axios";
-import Profile from "./profile";
+// import Profile from "./profile";
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {};
     }
 
@@ -29,12 +29,13 @@ export default class OtherProfile extends React.Component {
     }
     render() {
         return (
-            <>
+            <div className="section">
                 <img src={this.state.profileimage || "/empty-image.jpg"} />
-                <h3>{this.state.first}</h3>
-                <h3>{this.state.last}</h3>
-                <h3>{this.state.bio}</h3>
-            </>
+                <h3>
+                    {this.state.first} {this.state.last}
+                </h3>
+                <p>{this.state.bio}</p>
+            </div>
         );
     }
 }
