@@ -141,4 +141,8 @@ a {
     color: black;
 }
 
-/* Other profile styling: */
+/* Other profile list styling: */
+.hover:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transition-duration: 0.6s;
+}

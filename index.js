@@ -119,8 +119,13 @@ app.get("/users", (req, res) => {
 app.get("/api/moreusers/:user", async (req, res) => {
     const { user } = req.params;
     const { rows } = await db.getMatchingUsers(user);
-    console.log("more users: ", rows);
-    res.json(rows);
+    if (rows[0]) {
+        console.log("more users: ");
+        res.json(rows);
+    } else {
+        console.log("no result");
+        res.json({ empty: true });
+    }
 });
 
 app.get("/api/users", async (req, res) => {

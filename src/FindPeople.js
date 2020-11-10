@@ -20,6 +20,7 @@ export default function FindPeople() {
         (async () => {
             let path = `/api/moreusers/${user}`;
             const { data } = await axios.get(path);
+            console.log("axios data: ", data);
             if (!abort) {
                 setUsers(data);
             }
@@ -43,8 +44,8 @@ export default function FindPeople() {
                 style={{ margin: "0 auto", marginTop: "10px" }}
             ></input>
 
-            {users.length >= 0 && (
-                <div>
+            {Array.isArray(users) && (
+                <>
                     {users.map((eachUser) => (
                         <Link
                             key={eachUser.id}
@@ -52,13 +53,22 @@ export default function FindPeople() {
                             style={{ textDecoration: "none" }}
                         >
                             <div
-                                className="section"
+                                className="section hover"
                                 style={{
                                     padding: "15px",
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "center",
+                                    transitionDuration: "0.6s",
                                 }}
+                                // onClick={() => {
+                                //     setUser(null);
+                                //     const input = document.getElementsByTagName(
+                                //         "input"
+                                //     )[0];
+                                //     input.value = "";
+                                //     console.log("input select: ", input);
+                                // }}
                             >
                                 <div>
                                     <img
@@ -73,35 +83,39 @@ export default function FindPeople() {
                             </div>
                         </Link>
                     ))}
-                </div>
+                </>
             )}
-            <div className="section">
-                <h1>Joined recently:</h1>
-            </div>
-            {threeUsers.map((each) => (
-                <div
-                    key={each.id}
-                    className="section"
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        alignSelf: "center",
-                    }}
-                >
-                    <Link
-                        to={`/user/${each.id}`}
-                        style={{
-                            textDecoration: "none",
-                            textAlign: "center",
-                        }}
-                    >
-                        <img src={each.profileimage} />
-                        <br />
-                        {each.first} {each.last}
-                    </Link>
-                </div>
-            ))}
+            {!user && (
+                <>
+                    <div className="section">
+                        <h1>Joined recently:</h1>
+                    </div>
+                    {threeUsers.map((each) => (
+                        <div
+                            key={each.id}
+                            className="section"
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                alignSelf: "center",
+                            }}
+                        >
+                            <Link
+                                to={`/user/${each.id}`}
+                                style={{
+                                    textDecoration: "none",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <img src={each.profileimage} />
+                                <br />
+                                {each.first} {each.last}
+                            </Link>
+                        </div>
+                    ))}
+                </>
+            )}
         </>
     );
 }
