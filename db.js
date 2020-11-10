@@ -76,3 +76,9 @@ exports.updateBio = (bio, id) => {
 exports.getLastThreeRegisteredUsers = () => {
     return db.query(`  SELECT * FROM users ORDER BY id DESC LIMIT 3`);
 };
+exports.getMatchingUsers = (val) => {
+    return db.query(
+        `SELECT first, last, profileimage, id FROM users WHERE first ILIKE $1;`,
+        [val + "%"]
+    );
+};

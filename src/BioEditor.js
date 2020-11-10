@@ -14,14 +14,14 @@ export default class BioEditor extends Component {
     // now check how to make it so the textarea is prepopulated
 
     textareaToggle(e) {
-        console.log("works toggle");
+        // console.log("works toggle");
         this.setState({
             editorIsVisible: !this.state.editorIsVisible,
             bioDraft: this.props.bio,
         });
-        console.log(e);
-        let textarea = document.getElementsByTagName("sdfdfs");
-        console.log(textarea);
+        // console.log(e);
+        // let textarea = document.getElementsByTagName("sdfdfs");
+        // console.log(textarea);
         // console.log("Mounted bio: ", this.props.bio);
         // textarea.value = this.props.bio;
     }

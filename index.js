@@ -120,6 +120,16 @@ app.get("/api/users", async (req, res) => {
     const { rows } = await db.getLastThreeRegisteredUsers();
     res.json(rows);
 });
+app.get("/api/users/:user", async (req, res) => {
+    const { user } = req.params;
+    const { rows } = await db.getMatchingUsers(user);
+    console.log(rows);
+    res.json(rows);
+});
+app.get("/api/users", async (req, res) => {
+    const { rows } = await db.getLastThreeRegisteredUsers();
+    res.json(rows);
+});
 
 app.get("/api/user/:id", async (req, res) => {
     const { id } = req.params;
