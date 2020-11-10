@@ -116,18 +116,16 @@ app.get("/users", (req, res) => {
         });
 });
 
-app.get("/api/users", async (req, res) => {
-    const { rows } = await db.getLastThreeRegisteredUsers();
-    res.json(rows);
-});
-app.get("/api/users/:user", async (req, res) => {
+app.get("/api/moreusers/:user", async (req, res) => {
     const { user } = req.params;
     const { rows } = await db.getMatchingUsers(user);
-    console.log(rows);
+    console.log("more users: ", rows);
     res.json(rows);
 });
+
 app.get("/api/users", async (req, res) => {
     const { rows } = await db.getLastThreeRegisteredUsers();
+    console.log("3 users: ", rows);
     res.json(rows);
 });
 

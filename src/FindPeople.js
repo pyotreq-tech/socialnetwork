@@ -3,37 +3,23 @@ import axios from "./axios";
 import { Link } from "react-router-dom";
 
 export default function FindPeople() {
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState();
     const [threeUsers, setThreeUsers] = useState([]);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        (async () => {
-            const { data } = await axios.get("/api/users");
-            setThreeUsers(data);
-        })();
-        console.log(user);
-        // let abort;
-        // (async () => {
-        //     const { data } = await axios.get(`/api/users/${user}`);
-        //     if (!abort) {
-        //         setUsers(data);
-        //     }
-        // })();
-        // return () => {
-        //     abort = true;
-        // };
-    }, [user]);
+        console.log("user: ", user);
 
-    function onChange(e) {
-        setUser(e.target.value);
-        // console.log(value);
-        // setUser(value);
-        // console.log(user);
-        let abort;
         (async () => {
-            await setUser(e.target.value);
-            const { data } = await axios.get(`/api/users/${user}`);
+            let { data } = await axios.get("/api/users");
+            await setThreeUsers(data);
+        })();
+
+        let abort;
+
+        (async () => {
+            let path = `/api/moreusers/${user}`;
+            const { data } = await axios.get(path);
             if (!abort) {
                 setUsers(data);
             }
@@ -41,6 +27,10 @@ export default function FindPeople() {
         return () => {
             abort = true;
         };
+    }, [user]);
+
+    function onChange(e) {
+        setUser(e.target.value);
     }
 
     return (
@@ -52,32 +42,39 @@ export default function FindPeople() {
                 className="input-registration"
                 style={{ margin: "0 auto", marginTop: "10px" }}
             ></input>
-            {users.map((user) => (
-                <Link
-                    to={`/user/${user.id}`}
-                    style={{ textDecoration: "none" }}
-                >
-                    <div
-                        key={user.id}
-                        className="section"
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                        }}
-                    >
-                        <div>
-                            <img
-                                src={user.profileimage}
-                                style={{ width: "50px" }}
-                            />
-                        </div>
-                        <span style={{ marginLeft: "30px" }}>
-                            {user.first} {user.last}
-                        </span>
-                    </div>
-                </Link>
-            ))}
+
+            {users.length >= 0 && (
+                <div>
+                    {users.map((eachUser) => (
+                        <Link
+                            key={eachUser.id}
+                            to={`/user/${eachUser.id}`}
+                            style={{ textDecoration: "none" }}
+                        >
+                            <div
+                                className="section"
+                                style={{
+                                    padding: "15px",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <div>
+                                    <img
+                                        src={eachUser.profileimage}
+                                        alt={"Profile Picture"}
+                                        style={{ width: "50px" }}
+                                    />
+                                </div>
+                                <span style={{ marginLeft: "30px" }}>
+                                    {eachUser.first} {eachUser.last}
+                                </span>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            )}
             <div className="section">
                 <h1>Joined recently:</h1>
             </div>
