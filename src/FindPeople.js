@@ -22,6 +22,7 @@ export default function FindPeople() {
             </div>
             {threeUsers.map((each) => (
                 <div
+                    key={each.id}
                     className="section"
                     style={{
                         display: "flex",

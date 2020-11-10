@@ -9,6 +9,7 @@ export default class OtherProfile extends React.Component {
     }
 
     componentDidMount() {
+        console.log("other profile mounting");
         axios
             .get(`/api/user/${this.props.match.params.id}`)
             .then((response) => {
@@ -29,15 +30,18 @@ export default class OtherProfile extends React.Component {
             });
     }
     render() {
+        console.log("props: ", this.props);
         return (
-            <div className="section" key={this.state.id}>
-                <img src={this.state.profileimage || "/empty-image.jpg"} />
+            <>
+                <div className="section" key={this.state.id}>
+                    <img src={this.state.profileimage || "/empty-image.jpg"} />
 
-                <h3>
-                    {this.state.first} {this.state.last}
-                </h3>
-                <p>{this.state.bio}</p>
-            </div>
+                    <h3>
+                        {this.state.first} {this.state.last}
+                    </h3>
+                    <p>{this.state.bio}</p>
+                </div>
+            </>
         );
     }
 }
