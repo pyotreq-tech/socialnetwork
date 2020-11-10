@@ -116,6 +116,11 @@ app.get("/users", (req, res) => {
         });
 });
 
+app.get("/api/users", async (req, res) => {
+    const { rows } = await db.getLastThreeRegisteredUsers();
+    res.json(rows);
+});
+
 app.get("/api/user/:id", async (req, res) => {
     const { id } = req.params;
     const { userId } = req.session;
@@ -126,6 +131,7 @@ app.get("/api/user/:id", async (req, res) => {
             const { rows } = await db.getOtherUserDataById(id);
             if (rows[0]) {
                 res.json(rows[0]);
+                console.log(rows[0]);
             } else {
                 res.json({ denied: true });
             }

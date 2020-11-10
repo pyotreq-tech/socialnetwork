@@ -7,6 +7,7 @@ import axios from "./axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import OtherProfile from "./OtherProfile";
 import { Link } from "react-router-dom";
+import FindPeople from "./FindPeople";
 
 export default class App extends React.Component {
     constructor() {
@@ -100,20 +101,7 @@ export default class App extends React.Component {
                     </div>
                     <div className="app-body">
                         <div className="app-left">
-                            <div className="section">
-                                sd fdsdfs2sdf dsf bsdfjkdsh kjhsdgg djh jkgsh
-                                ldfjhg lsdjfhgk hsdfkjhg dsfjkgh lkkfdj hlsfdgf
-                                jkshdhf jhd 342v342 234v4
-                            </div>
-                            <div className="section">
-                                sd fdsdfs2sdf fgo sdfogiu fdoiiugdfsoiug
-                                oisdfugoi dufsoigiu sdfoigu ofdiug ofdiug dsf
-                                bsdfjkdsh kjhsdf jkshdhf jhd 342v342 234v4
-                            </div>
-                            <div className="section">
-                                sd fdsdfs2sdf dsf bsdfjkdsh kjhsdf jkshdhf jhd
-                                342v342 234v4
-                            </div>
+                            <FindPeople />
                         </div>
                         <div className="app-right">
                             {/* {this.state.profileComponent && ( */}

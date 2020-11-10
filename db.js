@@ -32,7 +32,7 @@ exports.getUserDataById = (id) => {
 };
 exports.getOtherUserDataById = (id) => {
     return db.query(
-        `SELECT first, last, profileimage, bio, id FROM users WHERE id = $1`,
+        `SELECT id, first, last, profileimage, bio, id FROM users WHERE id = $1`,
         [id]
     );
 };
@@ -71,4 +71,8 @@ exports.updateBio = (bio, id) => {
     `,
         [bio, id]
     );
+};
+
+exports.getLastThreeRegisteredUsers = () => {
+    return db.query(`  SELECT * FROM users ORDER BY id DESC LIMIT 3`);
 };

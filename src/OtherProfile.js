@@ -20,6 +20,7 @@ export default class OtherProfile extends React.Component {
                         last: response.data.last,
                         profileimage: response.data.profileimage,
                         bio: response.data.bio,
+                        id: response.data.id,
                     });
                 }
             })
@@ -29,7 +30,7 @@ export default class OtherProfile extends React.Component {
     }
     render() {
         return (
-            <div className="section">
+            <div className="section" key={this.state.id}>
                 <img src={this.state.profileimage || "/empty-image.jpg"} />
 
                 <h3>

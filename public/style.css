@@ -3,8 +3,9 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: "Raleway", sans-serif;
-    overflow-x: hidden;
+    overflow: hidden;
     background-color: #f0f2f5;
+    height: 100vh;
 }
 
 /* Welcome page styling: */
@@ -100,14 +101,18 @@ body {
     flex-flow: row wrap;
 }
 .app-left {
-    width: 500px;
+    width: 450px;
     display: flex;
     flex-direction: column;
+    /* margin-top: 10px; */
+    height: 90vh;
+    overflow-y: scroll;
 }
 .app-right {
     width: 500px;
     display: flex;
     flex-direction: column;
+    /* margin-top: 10px; */
 }
 
 .section {
