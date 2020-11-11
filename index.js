@@ -133,12 +133,16 @@ app.post("/FriendStatus/:buttonMessage", async (req, res) => {
     const { id } = req.body;
     if (req.params.buttonMessage == "Add Friend") {
         const { data } = await db.addFriendRequest(id, userId, false);
+        res.json({ success: true });
     } else if (req.params.buttonMessage == "Cancel request") {
         const { data } = await db.cancelFriendship(id, userId);
+        res.json({ success: true });
     } else if (req.params.buttonMessage == "Accept Friend") {
         const { data } = await db.acceptFriendRequest(id, userId, true);
+        res.json({ success: true });
     } else if (req.params.buttonMessage == "End Friendship") {
         const { data } = await db.cancelFriendship(id, userId);
+        res.json({ success: true });
     }
 });
 
