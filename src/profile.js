@@ -6,24 +6,32 @@ export default function Profile(props) {
     console.log("props.bio: ", props.bio);
 
     return (
-        <div className="section">
-            <h1>Profile component</h1>
-            <span>
-                Hello there {props.first} {props.last}
-                <br />
-                {props.bio}
-                <br />
-                <ProfilePicture
-                    profileImage={props.profileImage}
-                    first={props.first}
-                    last={props.last}
-                />
-                <BioEditor
-                    bio={props.bio}
-                    id={props.id}
-                    updateBio={(arg) => props.updateBio(arg)}
-                />
-            </span>
+        <div
+            className="section"
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+        >
+            <h1>
+                {props.first} {props.last}
+            </h1>
+            <ProfilePicture
+                profileImage={props.profileImage}
+                first={props.first}
+                last={props.last}
+                classValue={"maxi-logo"}
+            />
+            <br />
+            <p>{props.bio}</p>
+            <br />
+            <BioEditor
+                bio={props.bio}
+                id={props.id}
+                updateBio={(arg) => props.updateBio(arg)}
+            />
         </div>
     );
 }

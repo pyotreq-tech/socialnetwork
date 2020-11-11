@@ -14,16 +14,10 @@ export default class BioEditor extends Component {
     // now check how to make it so the textarea is prepopulated
 
     textareaToggle(e) {
-        // console.log("works toggle");
         this.setState({
             editorIsVisible: !this.state.editorIsVisible,
             bioDraft: this.props.bio,
         });
-        // console.log(e);
-        // let textarea = document.getElementsByTagName("sdfdfs");
-        // console.log(textarea);
-        // console.log("Mounted bio: ", this.props.bio);
-        // textarea.value = this.props.bio;
     }
 
     handleChange(e) {
@@ -63,31 +57,56 @@ export default class BioEditor extends Component {
     render() {
         return (
             <>
-                <h1>Bio editor</h1>
-
                 {this.state.editorIsVisible && (
                     <div>
                         <textarea
                             id="textarea"
                             name="bio"
                             onChange={(e) => this.handleChange(e)}
-                            // need to work or prepopulation the textfield
                             value={this.state.bioDraft}
+                            className={"bio-textarea"}
                         />
                     </div>
                 )}
                 {this.props.bio && !this.state.editorIsVisible && (
-                    <button onClick={() => this.textareaToggle()}>
+                    <button
+                        onClick={() => this.textareaToggle()}
+                        className="input-registration"
+                        style={{
+                            backgroundColor: "teal",
+                            color: "white",
+                            width: "130px",
+                            margin: "10px auto",
+                        }}
+                    >
                         Edit bio!
                     </button>
                 )}
                 {!this.props.bio && !this.state.editorIsVisible && (
-                    <button onClick={() => this.textareaToggle()}>
+                    <button
+                        onClick={() => this.textareaToggle()}
+                        className="input-registration"
+                        style={{
+                            backgroundColor: "teal",
+                            color: "white",
+                            width: "130px",
+                            margin: "10px auto",
+                        }}
+                    >
                         Add bio!
                     </button>
                 )}
                 {this.state.editorIsVisible && (
-                    <button onClick={() => this.submitBio()}>
+                    <button
+                        onClick={() => this.submitBio()}
+                        className="input-registration"
+                        style={{
+                            backgroundColor: "teal",
+                            color: "white",
+                            width: "130px",
+                            margin: "10px auto",
+                        }}
+                    >
                         Submit bio!
                     </button>
                 )}

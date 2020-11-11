@@ -5,6 +5,7 @@ export default function ProfilePicture({
     first,
     last,
     toggleComponent,
+    classValue,
 }) {
     // console.log("props from App:", first);
     return (
@@ -13,7 +14,7 @@ export default function ProfilePicture({
                 src={profileImage || "/empty-image.jpg"}
                 alt={first + " " + last}
                 onClick={() => toggleComponent("uploaderIsVisible")}
-                className="mini-logo"
+                className={classValue}
             />
         </>
     );

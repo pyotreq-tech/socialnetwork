@@ -49,7 +49,6 @@ export default class App extends React.Component {
 
     methodInApp(arg) {
         this.setState({ profileImage: arg });
-        this.toggleComponent("uploaderIsVisible");
     }
     updateBio(arg) {
         this.setState({ bio: arg });
@@ -82,6 +81,7 @@ export default class App extends React.Component {
                                 profileImage={this.state.profileImage}
                                 first={this.state.first}
                                 last={this.state.last}
+                                classValue={"mini-logo"}
                                 toggleComponent={(arg) =>
                                     this.toggleComponent(arg)
                                 }

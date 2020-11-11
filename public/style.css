@@ -75,6 +75,19 @@ body {
     border-radius: 50%;
     /* border: 3px teal solid; */
 }
+.maxi-logo {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 5px teal solid;
+}
+.uploader-logo {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    border: 5px teal solid;
+    margin-bottom: 20px;
+}
 
 /* App styling: */
 
@@ -109,9 +122,12 @@ body {
     overflow-y: scroll;
 }
 .app-right {
-    width: 500px;
+    width: 600px;
     display: flex;
     flex-direction: column;
+    height: 90vh;
+    overflow-y: scroll;
+
     /* margin-top: 10px; */
 }
 
@@ -145,4 +161,12 @@ a {
 .hover:hover {
     background-color: rgba(0, 0, 0, 0.1);
     transition-duration: 0.6s;
+}
+
+/* Bio editor styling: */
+.bio-textarea {
+    width: 380px;
+    height: 200px;
+    font-family: "Raleway", sans-serif;
+    resize: none;
 }

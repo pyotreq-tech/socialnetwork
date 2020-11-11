@@ -65,10 +65,19 @@ export default class Uploader extends React.Component {
 
     render() {
         return (
-            <div className="section">
-                <h1>Uploader</h1>
+            <div
+                className="section"
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                <h1>Change Profile Picture</h1>
                 <img
                     id="output"
+                    className={"uploader-logo"}
                     src={this.state.url || "/empty-image.jpg"}
                     alt={this.props.first + " " + this.props.last}
                 />
