@@ -111,7 +111,15 @@ exports.cancelFriendship = (receipent, sender) => {
         WHERE (recipient_id = $1 AND sender_id = $2)
         OR (recipient_id = $2 AND sender_id = $1)
         RETURNING sender_id;
-`,
+        `,
         [receipent, sender]
+    );
+};
+
+exports.acceptFriendRequest = (receipent, sender, accepted) => {
+    return db.query(
+        `UPDATE friendships SET accepted = $3 WHERE recipient_id = $1 AND sender_id = $2;
+        `,
+        [sender, receipent, accepted]
     );
 };

@@ -135,6 +135,10 @@ app.post("/FriendStatus/:buttonMessage", async (req, res) => {
         const { data } = await db.addFriendRequest(id, userId, false);
     } else if (req.params.buttonMessage == "Cancel request") {
         const { data } = await db.cancelFriendship(id, userId);
+    } else if (req.params.buttonMessage == "Accept Friend") {
+        const { data } = await db.acceptFriendRequest(id, userId, true);
+    } else if (req.params.buttonMessage == "End Friendship") {
+        const { data } = await db.cancelFriendship(id, userId);
     }
 });
 
@@ -146,7 +150,7 @@ app.get("/checkFriendStatus/:otherUserId", async (req, res) => {
         if (!rows[0]) {
             res.json({ button: "Add Friend" });
         } else if (!rows[0].accepted) {
-            if (rows[0].recipient_id == req.session.userId) {
+            if (rows[0].recipient_id !== req.session.userId) {
                 res.json({
                     button: "Cancel request",
                 });

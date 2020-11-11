@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react";
 
 export default function FriendButton({ id }) {
     const [buttonMessage, setButtonMessage] = useState();
+
     const handleClick = () => {
         (async () => {
             let { data } = await axios.post(`/FriendStatus/${buttonMessage}`, {
                 id: id,
             });
-            console.log(data);
         })();
     };
 
@@ -17,7 +17,7 @@ export default function FriendButton({ id }) {
             let { data } = await axios.get(`/checkFriendStatus/${id}`);
             setButtonMessage(data.button);
         })();
-    }, [buttonMessage]);
+    });
 
     return (
         <>
