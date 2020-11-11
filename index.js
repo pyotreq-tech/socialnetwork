@@ -146,7 +146,15 @@ app.get("/checkFriendStatus/:otherUserId", async (req, res) => {
         if (!rows[0]) {
             res.json({ button: "Add Friend" });
         } else if (!rows[0].accepted) {
-            res.json({ button: "Cancel request" });
+            if (rows[0].recipient_id == req.session.userId) {
+                res.json({
+                    button: "Cancel request",
+                });
+            } else {
+                res.json({
+                    button: "Accept Friend",
+                });
+            }
         } else if (rows[0].accepted) {
             res.json({ button: "End Friendship" });
         }

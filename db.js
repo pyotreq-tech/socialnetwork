@@ -109,7 +109,8 @@ exports.cancelFriendship = (receipent, sender) => {
     return db.query(
         `  DELETE FROM friendships
         WHERE (recipient_id = $1 AND sender_id = $2)
-        OR (recipient_id = $2 AND sender_id = $1);
+        OR (recipient_id = $2 AND sender_id = $1)
+        RETURNING sender_id;
 `,
         [receipent, sender]
     );
