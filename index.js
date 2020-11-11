@@ -128,6 +128,15 @@ app.get("/api/moreusers/:user", async (req, res) => {
     }
 });
 
+app.post("/FriendStatus/:buttonMessage", async (req, res) => {
+    const { userId } = req.session;
+    console.log(req.body);
+    console.log(userId);
+    if (req.params.buttonMessage == "Add Friend") {
+        console.log("Add Friend as a request");
+    }
+});
+
 app.get("/checkFriendStatus/:otherUserId", async (req, res) => {
     try {
         const { userId } = req.session;

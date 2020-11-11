@@ -3,6 +3,14 @@ import React, { useState, useEffect } from "react";
 
 export default function FriendButton({ id }) {
     const [buttonMessage, setButtonMessage] = useState();
+    const handleClick = () => {
+        (async () => {
+            let { data } = await axios.post(`/FriendStatus/${buttonMessage}`, {
+                id: id,
+            });
+            console.log(data);
+        })();
+    };
 
     useEffect(() => {
         (async () => {
@@ -19,6 +27,7 @@ export default function FriendButton({ id }) {
                     color: "white",
                 }}
                 className="input-registration"
+                onClick={handleClick}
             >
                 {buttonMessage}
             </button>
