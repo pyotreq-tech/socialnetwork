@@ -43,13 +43,31 @@ export default function FindPeople() {
 
     return (
         <>
-            <input
-                name="user"
-                placeholder="user name..."
-                onChange={onChange}
-                className="input-registration"
-                style={{ margin: "0 auto", marginTop: "10px" }}
-            ></input>
+            <div
+                className="section"
+                style={{
+                    backgroundColor: "#f0f2f5",
+                    boxShadow: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "0",
+                }}
+            >
+                <input
+                    name="user"
+                    placeholder="Search on Plenty of Catfish..."
+                    onChange={onChange}
+                    className="input-registration"
+                    style={{
+                        marginBottom: "0",
+                        width: "320px",
+                        height: "40px",
+                        boxShadow: "0 0.1rem 0 rgba(0, 0, 0, 0.1)",
+                        border: "none",
+                    }}
+                ></input>
+            </div>
 
             {Array.isArray(users) && (
                 <>
@@ -79,8 +97,15 @@ export default function FindPeople() {
                             >
                                 <div>
                                     <img
-                                        src={eachUser.profileimage}
-                                        alt={"Profile Picture"}
+                                        src={
+                                            eachUser.profileimage ||
+                                            "/empty-image.jpg"
+                                        }
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "/empty-image.jpg";
+                                        }}
+                                        // alt={"Profile Picture"}
                                         style={{ width: "50px" }}
                                     />
                                 </div>
@@ -112,6 +137,7 @@ export default function FindPeople() {
                                 flexDirection: "column",
                                 alignItems: "center",
                                 alignSelf: "center",
+                                width: "150px",
                             }}
                         >
                             <Link
@@ -121,7 +147,11 @@ export default function FindPeople() {
                                     textAlign: "center",
                                 }}
                             >
-                                <img src={each.profileimage} />
+                                <img
+                                    src={
+                                        each.profileimage || "/empty-image.jpg"
+                                    }
+                                />
                                 <br />
                                 {each.first} {each.last}
                             </Link>

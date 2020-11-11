@@ -60,12 +60,6 @@ export default class App extends React.Component {
                 <div className="app-container">
                     <div className="app-navbar">
                         <Logo />
-                        <h2>
-                            {this.state.uploaderIsVisible &&
-                                "Upload your profile picture"}
-                            {!this.state.uploaderIsVisible &&
-                                "Welcome to our network"}
-                        </h2>
 
                         <Link to="/">
                             <div

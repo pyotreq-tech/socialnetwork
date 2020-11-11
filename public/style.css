@@ -5,7 +5,6 @@ body {
     font-family: "Raleway", sans-serif;
     overflow: hidden;
     background-color: #f0f2f5;
-    height: 100vh;
 }
 
 /* Welcome page styling: */
@@ -14,6 +13,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100vw;
+
     justify-content: center;
     align-items: center;
 }
@@ -102,7 +102,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-flow: row wrap;
-
+    padding: 5px;
     width: 100%;
     justify-content: space-around;
     align-items: center;
@@ -111,24 +111,27 @@ body {
 .app-body {
     display: flex;
     flex-direction: row;
-    flex-flow: row wrap;
+    /* flex-flow: row wrap; */
 }
 .app-left {
     width: 450px;
     display: flex;
     flex-direction: column;
-    /* margin-top: 10px; */
-    height: 90vh;
-    overflow-y: scroll;
+    margin-top: 10px;
+    height: 88vh;
+    /* border-right: 1px #d3d3d3 solid; */
+    overflow-y: auto;
 }
+
 .app-right {
     width: 600px;
     display: flex;
     flex-direction: column;
-    height: 90vh;
-    overflow-y: scroll;
+    height: 88vh;
+    overflow-y: auto;
+    /* border-right: 1px #d3d3d3 solid; */
 
-    /* margin-top: 10px; */
+    margin-top: 10px;
 }
 
 .section {
@@ -169,4 +172,21 @@ a {
     height: 200px;
     font-family: "Raleway", sans-serif;
     resize: none;
+}
+
+/* Scrollbar styling: */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #f0f2f5;
+    /* background: #d3d3d3; */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #d3d3d3;
 }

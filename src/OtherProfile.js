@@ -35,13 +35,29 @@ export default class OtherProfile extends React.Component {
         console.log("props: ", this.props);
         return (
             <>
-                <div className="section" key={this.state.id}>
-                    <img src={this.state.profileimage || "/empty-image.jpg"} />
-                    <FriendButton id={this.state.id} key={this.state.id} />
+                <div
+                    className="section"
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                    key={this.state.id}
+                >
+                    <img
+                        src={this.state.profileimage || "/empty-image.jpg"}
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "/empty-image.jpg";
+                        }}
+                        style={{ border: "4px teal solid" }}
+                    />
 
-                    <h3>
+                    <h2>
                         {this.state.first} {this.state.last}
-                    </h3>
+                    </h2>
+                    <FriendButton id={this.state.id} key={this.state.id} />
                     <p>{this.state.bio}</p>
                 </div>
             </>
