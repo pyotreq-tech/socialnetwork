@@ -17,7 +17,7 @@ export default function FriendButton({ id }) {
             let { data } = await axios.get(`/checkFriendStatus/${id}`);
             setButtonMessage(data.button);
         })();
-    }, []);
+    }, [buttonMessage]);
 
     return (
         <>

@@ -130,10 +130,11 @@ app.get("/api/moreusers/:user", async (req, res) => {
 
 app.post("/FriendStatus/:buttonMessage", async (req, res) => {
     const { userId } = req.session;
-    console.log(req.body);
-    console.log(userId);
+    const { id } = req.body;
     if (req.params.buttonMessage == "Add Friend") {
-        console.log("Add Friend as a request");
+        const { data } = await db.addFriendRequest(id, userId, false);
+    } else if (req.params.buttonMessage == "Cancel request") {
+        const { data } = await db.cancelFriendship(id, userId);
     }
 });
 
@@ -141,15 +142,11 @@ app.get("/checkFriendStatus/:otherUserId", async (req, res) => {
     try {
         const { userId } = req.session;
         const { otherUserId } = req.params;
-        console.log({ userId });
-        console.log({ otherUserId });
         const { rows } = await db.getInitialStatus(userId, otherUserId);
         if (!rows[0]) {
             res.json({ button: "Add Friend" });
         } else if (!rows[0].accepted) {
-            console.log(
-                "We have to figure whether to render the cancel request or accept friend request"
-            );
+            res.json({ button: "Cancel request" });
         } else if (rows[0].accepted) {
             res.json({ button: "End Friendship" });
         }
