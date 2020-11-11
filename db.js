@@ -78,7 +78,13 @@ exports.getLastThreeRegisteredUsers = () => {
 };
 exports.getMatchingUsers = (val) => {
     return db.query(
-        `SELECT first, last, profileimage, id FROM users WHERE first ILIKE $1;`,
+        `SELECT first, last, profileimage, id FROM users WHERE first ILIKE $1`,
         [val + "%"]
     );
 };
+// exports.getMatchingUsers = (val) => {
+//     return db.query(
+//         `SELECT first, last, profileimage, id FROM users WHERE first ILIKE $1 OR last ILIKE $1`,
+//         [val + "%"]
+//     );
+// };

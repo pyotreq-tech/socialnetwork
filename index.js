@@ -130,7 +130,7 @@ app.get("/api/moreusers/:user", async (req, res) => {
 
 app.get("/api/users", async (req, res) => {
     const { rows } = await db.getLastThreeRegisteredUsers();
-    console.log("3 users: ", rows);
+    // console.log("3 users: ", rows);
     res.json(rows);
 });
 

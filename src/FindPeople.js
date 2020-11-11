@@ -3,6 +3,7 @@ import axios from "./axios";
 import { Link } from "react-router-dom";
 
 export default function FindPeople() {
+    const [noResult, setNoResult] = useState();
     const [user, setUser] = useState();
     const [threeUsers, setThreeUsers] = useState([]);
     const [users, setUsers] = useState([]);
@@ -22,7 +23,13 @@ export default function FindPeople() {
             const { data } = await axios.get(path);
             console.log("axios data: ", data);
             if (!abort) {
-                setUsers(data);
+                if (data[0]) {
+                    setUsers(data);
+                    setNoResult(false);
+                } else {
+                    setUsers(data);
+                    setNoResult(true);
+                }
             }
         })();
         return () => {
@@ -84,6 +91,12 @@ export default function FindPeople() {
                         </Link>
                     ))}
                 </>
+            )}
+
+            {noResult && user && (
+                <div className="section">
+                    <h3>No results for: {user}</h3>
+                </div>
             )}
             {!user && (
                 <>
