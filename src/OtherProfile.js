@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "./axios";
+import FriendButton from "./FriendButton";
+
 // import Profile from "./profile";
 
 export default class OtherProfile extends React.Component {
@@ -35,6 +37,7 @@ export default class OtherProfile extends React.Component {
             <>
                 <div className="section" key={this.state.id}>
                     <img src={this.state.profileimage || "/empty-image.jpg"} />
+                    <FriendButton id={this.state.id} key={this.state.id} />
 
                     <h3>
                         {this.state.first} {this.state.last}

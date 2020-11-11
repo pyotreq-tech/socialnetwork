@@ -27,9 +27,11 @@ exports.addCode = (email, code) => {
 exports.getUserData = (email) => {
     return db.query(`SELECT * FROM users WHERE email = $1`, [email]);
 };
+
 exports.getUserDataById = (id) => {
     return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
 };
+
 exports.getOtherUserDataById = (id) => {
     return db.query(
         `SELECT id, first, last, profileimage, bio, id FROM users WHERE id = $1`,
@@ -64,6 +66,7 @@ exports.updateImage = (profileimage, id) => {
         [profileimage, id]
     );
 };
+
 exports.updateBio = (bio, id) => {
     return db.query(
         `UPDATE users SET bio = $1 WHERE id = $2 RETURNING bio;
@@ -76,15 +79,20 @@ exports.updateBio = (bio, id) => {
 exports.getLastThreeRegisteredUsers = () => {
     return db.query(`  SELECT * FROM users ORDER BY id DESC LIMIT 3`);
 };
+
 exports.getMatchingUsers = (val) => {
     return db.query(
         `SELECT first, last, profileimage, id FROM users WHERE first ILIKE $1`,
         [val + "%"]
     );
 };
-// exports.getMatchingUsers = (val) => {
-//     return db.query(
-//         `SELECT first, last, profileimage, id FROM users WHERE first ILIKE $1 OR last ILIKE $1`,
-//         [val + "%"]
-//     );
-// };
+
+exports.getInitialStatus = (receipent, sender) => {
+    return db.query(
+        `  SELECT * FROM friendships
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (recipient_id = $2 AND sender_id = $1);
+`,
+        [receipent, sender]
+    );
+};

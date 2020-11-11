@@ -87,7 +87,7 @@ app.post("/images", uploader.single("file"), s3.upload, (req, res) => {
 });
 app.post("/bio", (req, res) => {
     const { id, bio } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     db.updateBio(bio, id)
         .then(({ rows }) => {
@@ -106,7 +106,7 @@ app.post("/bio", (req, res) => {
 app.get("/users", (req, res) => {
     const { userId } = req.session;
     // console.log("users route hit");
-    console.log(userId);
+    // console.log(userId);
     db.getUserDataById(userId)
         .then(({ rows }) => {
             res.json(rows[0]);
@@ -120,11 +120,32 @@ app.get("/api/moreusers/:user", async (req, res) => {
     const { user } = req.params;
     const { rows } = await db.getMatchingUsers(user);
     if (rows[0]) {
-        console.log("more users: ");
+        // console.log("more users: ");
         res.json(rows);
     } else {
-        console.log("no result");
+        // console.log("no result");
         res.json({ empty: true });
+    }
+});
+
+app.get("/checkFriendStatus/:otherUserId", async (req, res) => {
+    try {
+        const { userId } = req.session;
+        const { otherUserId } = req.params;
+        console.log({ userId });
+        console.log({ otherUserId });
+        const { rows } = await db.getInitialStatus(userId, otherUserId);
+        if (!rows[0]) {
+            res.json({ button: "Add Friend" });
+        } else if (!rows[0].accepted) {
+            console.log(
+                "We have to figure whether to render the cancel request or accept friend request"
+            );
+        } else if (rows[0].accepted) {
+            res.json({ button: "End Friendship" });
+        }
+    } catch (e) {
+        console.log({ e });
     }
 });
 
@@ -144,11 +165,11 @@ app.get("/api/user/:id", async (req, res) => {
             const { rows } = await db.getOtherUserDataById(id);
             if (rows[0]) {
                 res.json(rows[0]);
-                console.log(rows[0]);
+                // console.log(rows[0]);
             } else {
                 res.json({ denied: true });
             }
-        } catch {
+        } catch (e) {
             console.log("error in api user");
             res.json({ denied: true });
         }
@@ -189,7 +210,7 @@ app.post("/password/reset/start", (req, res) => {
 });
 
 app.post("/password/reset/verify", (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { email, code, password } = req.body;
     db.getCode(email).then(({ rows }) => {
         if (code == rows[0].code) {
