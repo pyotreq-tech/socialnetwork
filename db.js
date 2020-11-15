@@ -31,6 +31,18 @@ exports.getUserData = (email) => {
 exports.getUserDataById = (id) => {
     return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
 };
+exports.getFriends = (id) => {
+    return db.query(
+        `  SELECT users.id, first, last, profileimage, accepted
+        FROM friendships
+        JOIN users
+        ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
+`,
+        [id]
+    );
+};
 
 exports.getOtherUserDataById = (id) => {
     return db.query(
@@ -93,15 +105,15 @@ exports.getInitialStatus = (receipent, sender) => {
         WHERE (recipient_id = $1 AND sender_id = $2)
         OR (recipient_id = $2 AND sender_id = $1);
 `,
-        [receipent, sender]
+        [sender, receipent]
     );
 };
 
 exports.addFriendRequest = (receipent, sender, accepted) => {
     return db.query(
-        `INSERT INTO friendships (sender_id, recipient_id, accepted) VALUES ($1, $2, $3);
+        `INSERT INTO friendships (recipient_id, sender_id, accepted) VALUES ($1, $2, $3);
 `,
-        [sender, receipent, accepted]
+        [receipent, sender, accepted]
     );
 };
 
@@ -118,8 +130,9 @@ exports.cancelFriendship = (receipent, sender) => {
 
 exports.acceptFriendRequest = (receipent, sender, accepted) => {
     return db.query(
-        `UPDATE friendships SET accepted = $3 WHERE recipient_id = $1 AND sender_id = $2;
+        `UPDATE friendships SET accepted = $3 WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)
+;
         `,
-        [sender, receipent, accepted]
+        [receipent, sender, accepted]
     );
 };

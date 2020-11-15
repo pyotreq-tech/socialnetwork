@@ -115,6 +115,17 @@ app.get("/users", (req, res) => {
             console.log("error in /get users: ", err);
         });
 });
+app.get("/getFriends", (req, res) => {
+    const { userId } = req.session;
+    console.log("/getFriends route has been hit");
+    db.getFriends(userId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("error in /get users: ", err);
+        });
+});
 
 app.get("/api/moreusers/:user", async (req, res) => {
     const { user } = req.params;
@@ -139,6 +150,8 @@ app.post("/FriendStatus/:buttonMessage", async (req, res) => {
         res.json({ success: true });
     } else if (req.params.buttonMessage == "Accept Friend") {
         const { data } = await db.acceptFriendRequest(id, userId, true);
+        console.log({ id });
+        console.log({ userId });
         res.json({ success: true });
     } else if (req.params.buttonMessage == "End Friendship") {
         const { data } = await db.cancelFriendship(id, userId);
