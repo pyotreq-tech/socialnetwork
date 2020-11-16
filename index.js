@@ -204,6 +204,18 @@ app.get("/api/users", async (req, res) => {
     // console.log("3 users: ", rows);
     res.json(rows);
 });
+app.post("/postWall", async (req, res) => {
+    console.log(req.body);
+    const { user_id, author_id, content, image_url } = req.body;
+    const { data } = await db.postWall(user_id, author_id, content, image_url);
+    res.json({ success: true });
+});
+app.get("/getWall/:id", async (req, res) => {
+    const { id } = req.params;
+    const { rows } = await db.displayWall(id);
+    console.log("INFO FROM GETWALLPOSTA: ", rows);
+    res.json(rows);
+});
 
 app.get("/api/user/:id", async (req, res) => {
     const { id } = req.params;

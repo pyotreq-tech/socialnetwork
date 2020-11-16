@@ -129,6 +129,20 @@ exports.addFriendRequest = (receipent, sender, accepted) => {
         [receipent, sender, accepted]
     );
 };
+exports.postWall = (userId, authorId, content, imageUrl) => {
+    return db.query(
+        `INSERT INTO wall (user_id, author_id, content, image_url) VALUES ($1, $2, $3, $4);
+`,
+        [userId, authorId, content, imageUrl]
+    );
+};
+exports.displayWall = (id) => {
+    return db.query(
+        `SELECT * FROM wall WHERE user_id = $1;
+`,
+        [id]
+    );
+};
 
 exports.cancelFriendship = (receipent, sender) => {
     return db.query(

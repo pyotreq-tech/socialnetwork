@@ -4,12 +4,20 @@ import { Link } from "react-router-dom";
 
 export default function WallPosts({ id, first }) {
     const [isFriend, setIsFriend] = useState(false);
-    const [postContent, setPostContent] = useState();
+    const [content, setContent] = useState();
     const [url, setUrl] = useState();
     const [authorId, setAuthorId] = useState();
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        (async function () {
+        (async () => {
+            let { data } = await axios.get(`/getWall/${id}`);
+            await setPosts(data);
+        })();
+    }, [url]);
+
+    useEffect(() => {
+        (async () => {
             let { data } = await axios.get(`/checkFriendStatus/${id}`);
             if (data.button == "End Friendship" || id == data.id) {
                 setIsFriend(true);
@@ -19,22 +27,20 @@ export default function WallPosts({ id, first }) {
     });
 
     function onChange(e) {
-        setPostContent({ [e.target.name]: e.target.value });
+        setContent(e.target.value);
     }
     function onChangeUrl(e) {
-        setUrl({ [e.target.name]: e.target.value });
+        setUrl(e.target.value);
     }
 
     async function handleClick() {
         const { data } = await axios.post("/postWall", {
             user_id: id,
             author_id: authorId,
-            content: postContent,
+            content,
             image_url: url,
         });
     }
-
-    console.log(postContent, url);
 
     return (
         <>
@@ -44,13 +50,13 @@ export default function WallPosts({ id, first }) {
                         <h2>Write on {first} wall </h2>
                         <textarea
                             onChange={onChange}
-                            name="wallpost"
+                            name="content"
                             className={"bio-textarea"}
                         />
                         <input
                             type="text"
                             onChange={onChangeUrl}
-                            name="url"
+                            name="image_url"
                             // className={"bio-textarea"}
                         />
                         <button
@@ -66,9 +72,19 @@ export default function WallPosts({ id, first }) {
                             Post
                         </button>
                     </div>
-                    <div className="section">
-                        <h1>Post itself</h1>
-                    </div>
+
+                    {posts.map((each) => (
+                        <div className="section" key={each.id}>
+                            <img src={each.image_url}></img>
+
+                            <h3>
+                                Posted by {each.author_id} at{" "}
+                                {each.timestamp.slice(0, 10)}{" "}
+                                {each.timestamp.slice(11, 16)}
+                            </h3>
+                            <h4>{each.content}</h4>
+                        </div>
+                    ))}
                 </>
             )}
         </>

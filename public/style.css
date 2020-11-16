@@ -112,14 +112,17 @@ body {
 .app-body {
     display: flex;
     flex-direction: row;
+    /* justify-content: space-around; */
     /* flex-flow: row wrap; */
 }
 .app-left {
-    width: 450px;
+    width: 350px;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
     height: 88vh;
+    padding: 0 50px;
+
     /* border-right: 1px #d3d3d3 solid; */
     overflow-y: auto;
 }
@@ -131,7 +134,7 @@ body {
     height: 88vh;
     overflow-y: auto;
     /* border-right: 1px #d3d3d3 solid; */
-
+    padding: 0 50px;
     margin-top: 10px;
 }
 
@@ -192,6 +195,7 @@ a {
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background: #f0f2f5;
+    /* background: #d3d3d3; */
     /* background: #d3d3d3; */
 }
 ::-webkit-scrollbar-thumb:hover {
