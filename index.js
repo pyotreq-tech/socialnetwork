@@ -178,19 +178,21 @@ app.get("/checkFriendStatus/:otherUserId", async (req, res) => {
         const { otherUserId } = req.params;
         const { rows } = await db.getInitialStatus(userId, otherUserId);
         if (!rows[0]) {
-            res.json({ button: "Add Friend" });
+            res.json({ button: "Add Friend", id: userId });
         } else if (!rows[0].accepted) {
             if (rows[0].recipient_id !== req.session.userId) {
                 res.json({
                     button: "Cancel request",
+                    id: userId,
                 });
             } else {
                 res.json({
                     button: "Accept Friend",
+                    id: userId,
                 });
             }
         } else if (rows[0].accepted) {
-            res.json({ button: "End Friendship" });
+            res.json({ button: "End Friendship", id: userId });
         }
     } catch (e) {
         console.log("Error in check friend status: ", e);

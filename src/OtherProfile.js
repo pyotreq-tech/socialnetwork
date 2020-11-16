@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "./axios";
 import FriendButton from "./FriendButton";
+import WallPosts from "./WallPosts";
 
 // import Profile from "./profile";
 
@@ -60,6 +61,8 @@ export default class OtherProfile extends React.Component {
                     <FriendButton id={this.state.id} key={this.state.id} />
                     <p>{this.state.bio}</p>
                 </div>
+
+                <WallPosts id={this.state.id} first={this.state.first} />
             </>
         );
     }

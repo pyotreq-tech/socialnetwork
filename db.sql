@@ -25,3 +25,13 @@
 --    recipient_id INT REFERENCES users(id) NOT NULL,
 --    accepted BOOLEAN DEFAULT false
 --  );
+
+-- DROP TABLE IF EXISTS wall CASCADE;
+-- CREATE TABLE wall(
+--     id SERIAL PRIMARY KEY,
+--     user_id INT REFERENCES users(id) NOT NULL,
+--     author_id INT REFERENCES users(id) NOT NULL,
+--     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     content TEXT,
+--     image_url TEXT
+-- );
