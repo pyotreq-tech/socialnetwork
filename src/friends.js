@@ -51,6 +51,16 @@ export default function Friends() {
                             <br />
                             {each.first} {each.last}
                         </Link>
+                        <button
+                            style={{
+                                backgroundColor: "teal",
+                                color: "white",
+                            }}
+                            className="input-registration"
+                            onClick={() => dispatch(unfriend(each.id))}
+                        >
+                            Remove Friend
+                        </button>
                     </div>
                 ))}
             {wannabes && <div> Your wannabees: </div>}
@@ -80,6 +90,16 @@ export default function Friends() {
                             <br />
                             {each.first} {each.last}
                         </Link>
+                        <button
+                            style={{
+                                backgroundColor: "teal",
+                                color: "white",
+                            }}
+                            className="input-registration"
+                            onClick={() => dispatch(acceptFriend(each.id))}
+                        >
+                            Accept Request
+                        </button>
                     </div>
                 ))}
         </>

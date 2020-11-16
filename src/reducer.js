@@ -8,25 +8,37 @@ export default function reducer(state = {}, action) {
     }
 
     if (action.type == "ACCEPT_FRIEND_REQUEST") {
-        return {
+        state = {
             ...state,
-            friendsWannabes: state.friendsWannabes.filter((wannabe) => {
-                if (wannabe.id == action.id) {
+            friendsList: state.friendsList.map((user) => {
+                if (user.id == action.id) {
                     return {
-                        ...wannabe,
+                        ...user,
                         accepted: true,
                     };
                 } else {
-                    return wannabe;
+                    return user;
+                }
+            }),
+            receivedRequests: state.receivedRequests.filter((user) => {
+                if (user.id == action.id) {
+                    return;
+                } else {
+                    return user;
                 }
             }),
         };
     }
-
     if (action.type == "UNFRIEND") {
-        return {
+        state = {
             ...state,
-            friendsWannabes: "lol",
+            friendsList: state.friendsList.filter((user) => {
+                if (user.id == action.id) {
+                    return;
+                } else {
+                    return user;
+                }
+            }),
         };
     }
 
