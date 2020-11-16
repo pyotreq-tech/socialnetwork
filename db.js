@@ -44,6 +44,18 @@ exports.getFriends = (id) => {
         [id]
     );
 };
+exports.getOtherFriends = (id) => {
+    return db.query(
+        `  SELECT users.id, first, last, profileimage, accepted, sender_id, recipient_id
+        FROM friendships
+        JOIN users
+        ON (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
+        LIMIT 6
+`,
+        [id]
+    );
+};
 
 exports.getOtherUserDataById = (id) => {
     return db.query(

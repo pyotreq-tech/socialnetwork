@@ -143,6 +143,12 @@ body {
     box-shadow: 0 0.1rem 0 rgba(0, 0, 0, 0.1);
 }
 
+.friends-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 /* Navbar styling: */
 
 .navbar-icon {

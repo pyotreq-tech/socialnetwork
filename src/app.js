@@ -62,6 +62,14 @@ export default class App extends React.Component {
                     <div className="app-navbar">
                         <Logo />
 
+                        <Link to="/friends">
+                            <div
+                                className="navbar-icon"
+                                // onClick={() => this.toggleComponent("profileComponent")}
+                            >
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </Link>
                         <Link to="/">
                             <div
                                 className="navbar-icon"

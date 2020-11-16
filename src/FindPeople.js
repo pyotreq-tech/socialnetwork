@@ -9,32 +9,36 @@ export default function FindPeople() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        console.log("user: ", user);
-
         (async () => {
             let { data } = await axios.get("/api/users");
             await setThreeUsers(data);
         })();
+    }, []);
 
+    useEffect(() => {
         let abort;
 
-        (async () => {
-            let path = `/api/moreusers/${user}`;
-            const { data } = await axios.get(path);
-            console.log("axios data: ", data);
-            if (!abort) {
-                if (data[0]) {
-                    setUsers(data);
-                    setNoResult(false);
-                } else {
-                    setUsers(data);
-                    setNoResult(true);
+        if (user) {
+            (async () => {
+                let path = `/api/moreusers/${user}`;
+                const { data } = await axios.get(path);
+                console.log("axios data: ", data);
+                if (!abort) {
+                    if (data[0]) {
+                        setUsers(data);
+                        setNoResult(false);
+                    } else {
+                        setUsers(data);
+                        setNoResult(true);
+                    }
                 }
-            }
-        })();
-        return () => {
-            abort = true;
-        };
+            })();
+            return () => {
+                abort = true;
+            };
+        } else {
+            setUsers([]);
+        }
     }, [user]);
 
     function onChange(e) {
@@ -148,6 +152,7 @@ export default function FindPeople() {
                                 }}
                             >
                                 <img
+                                    style={{ maxWidth: "160px" }}
                                     src={
                                         each.profileimage || "/empty-image.jpg"
                                     }

@@ -11,6 +11,8 @@ const uidSafe = require("uid-safe");
 const multer = require("multer");
 const path = require("path");
 const s3 = require("./s3");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 
 app.use(express.json());
 
@@ -132,6 +134,12 @@ app.get("/getFriends", async (req, res) => {
     }
 });
 
+app.get("/getOtherFriends/:id", async (req, res) => {
+    const { id } = req.params;
+    const { rows } = await db.getOtherFriends(id);
+    res.json(rows);
+});
+
 app.get("/api/moreusers/:user", async (req, res) => {
     const { user } = req.params;
     const { rows } = await db.getMatchingUsers(user);
@@ -185,7 +193,7 @@ app.get("/checkFriendStatus/:otherUserId", async (req, res) => {
             res.json({ button: "End Friendship" });
         }
     } catch (e) {
-        console.log({ e });
+        console.log("Error in check friend status: ", e);
     }
 });
 
@@ -347,6 +355,43 @@ app.get("*", function (req, res) {
     }
 });
 
-app.listen(8080, function () {
+server.listen(8080, function () {
     console.log("I'm listening.");
+});
+
+// SOCKET CODE WILL RUN BELOW ALL HTTP CODE RUN ABOVE
+
+io.on("connection", (socket) => {
+    console.log(`socked with id ${socket.id} just connect!`);
+
+    // sending messages to client from server
+
+    //socket.emit - sends a message only to one client who has connected
+
+    socket.emit("welcome", {
+        name: "Piotr",
+    });
+
+    // io.emit -> everytime new user logs in, msg send to everybody
+
+    // io.emit("messageSentWithIoEmit", {
+    //     id: socket.id,
+    // });
+
+    // socket.broadcast.emit
+    // everytime one user connects, other users see the broadcast, except the user who just connected
+
+    socket.broadcast.emit("broadcastEmitFun", {
+        id: socket.id,
+    });
+
+    // listening for a message from the client
+
+    socket.on("messageFromClient", (data) => {
+        console.log("here is our data: ", data);
+    });
+
+    socket.on("disconnect", () => {
+        console.log("user " + socket.id + "has disconnected");
+    });
 });
