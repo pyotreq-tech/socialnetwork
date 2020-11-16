@@ -115,16 +115,21 @@ app.get("/users", (req, res) => {
             console.log("error in /get users: ", err);
         });
 });
-app.get("/getFriends", (req, res) => {
+
+app.get("/getFriends", async (req, res) => {
     const { userId } = req.session;
-    console.log("/getFriends route has been hit");
-    db.getFriends(userId)
-        .then(({ rows }) => {
-            res.json(rows);
-        })
-        .catch((err) => {
-            console.log("error in /get users: ", err);
+    try {
+        const { rows } = await db.getFriends(userId);
+        let received = rows.filter(function (user) {
+            return !user.accepted && user.sender_id != userId;
         });
+        let sent = rows.filter(function (user) {
+            return !user.accepted && user.sender_id == userId;
+        });
+        res.json({ rows, received, sent });
+    } catch (e) {
+        console.log(e);
+    }
 });
 
 app.get("/api/moreusers/:user", async (req, res) => {

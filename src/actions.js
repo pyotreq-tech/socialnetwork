@@ -1,44 +1,31 @@
-// will contain all of our action creator functions
-
 import axios from "./axios";
 
-// action creater - just a funciton that returns an object
-
-// the object that is returned is called an ACTION
-
-// export function fn() {
-//     return {
-//         type: "UPDATE_SOMETHING",
-//     };
-// }
-
-async function getList() {
+export async function getList() {
     const { data } = await axios.get("/getFriends");
     return {
         type: "GET_LIST",
-        friendsList: data,
+        friendsList: data.rows,
+        received: data.received,
+        sentL: data.sent,
     };
 }
-export { getList };
 
-async function acceptFriend(buttonMessage, id) {
-    const { data } = await axios.post(`/FriendStatus/${buttonMessage}`, {
+export async function acceptFriend(id) {
+    const { data } = await axios.post(`/FriendStatus/Accept Friend`, {
         id: id,
     });
     return {
         type: "ACCEPT_FRIEND_REQUEST",
-        friendsList: data,
+        id: id,
     };
 }
-export { acceptFriend };
 
-async function unfriend(buttonMessage, id) {
-    const { data } = await axios.post(`/FriendStatus/${buttonMessage}`, {
+export async function unfriend(id) {
+    const { data } = await axios.post(`/FriendStatus/End Friendship`, {
         id: id,
     });
     return {
         type: "UNFRIEND",
-        friendsList: data,
+        id: id,
     };
 }
-export { unfriend };

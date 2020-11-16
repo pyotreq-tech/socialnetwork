@@ -1,15 +1,25 @@
 export default function reducer(state = {}, action) {
     if (action.type == "GET_LIST") {
-        return {
-            ...state,
-            friendsWannabes: "lol",
-        };
+        state = Object.assign({}, state, {
+            friendsList: action.friendsList,
+            receivedRequests: action.received,
+            sentRequests: action.sent,
+        });
     }
 
     if (action.type == "ACCEPT_FRIEND_REQUEST") {
         return {
             ...state,
-            friendsWannabes: "lol",
+            friendsWannabes: state.friendsWannabes.filter((wannabe) => {
+                if (wannabe.id == action.id) {
+                    return {
+                        ...wannabe,
+                        accepted: true,
+                    };
+                } else {
+                    return wannabe;
+                }
+            }),
         };
     }
 
