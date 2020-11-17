@@ -39,6 +39,20 @@ export default function reducer(state = {}, action) {
                     return user;
                 }
             }),
+            receivedRequests: state.receivedRequests.filter((user) => {
+                if (user.id == action.id) {
+                    return;
+                } else {
+                    return user;
+                }
+            }),
+            sentRequests: state.sentRequests.filter((user) => {
+                if (user.id == action.id) {
+                    return;
+                } else {
+                    return user;
+                }
+            }),
         };
     }
 

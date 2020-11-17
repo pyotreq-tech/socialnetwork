@@ -6,7 +6,7 @@ export async function getList() {
         type: "GET_LIST",
         friendsList: data.rows,
         received: data.received,
-        sentL: data.sent,
+        sent: data.sent,
     };
 }
 
