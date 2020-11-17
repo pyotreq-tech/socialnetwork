@@ -8,19 +8,23 @@ export const init = (store) => {
         socket = io.connect();
 
         // receiving a message from server
-        socket.on("welcome", (msg) => {
-            console.log("hopefully we see this:)", msg.name);
-        });
+        // socket.on("welcome", (msg) => {
+        //     console.log("hopefully we see this:)", msg.name);
+        // });
 
-        socket.on("messageSentWithIoEmit", (msg) =>
-            console.log("payload from messageSentWithIo: ", msg)
-        );
+        // socket.on("messageSentWithIoEmit", (msg) =>
+        //     console.log("payload from messageSentWithIo: ", msg)
+        // );
 
-        socket.on("broadcastEmitFun", (msg) =>
-            console.log("payload from broadcastEmitFun: ", msg)
-        );
+        // socket.on("broadcastEmitFun", (msg) =>
+        //     console.log("payload from broadcastEmitFun: ", msg)
+        // );
 
         // sending message from client to server
-        socket.emit("messageFromClient", [1, 2, 3]);
+        // socket.emit("messageFromClient", [1, 2, 3]);
     }
+
+    socket.on("chatHistory", (chatMsgs) => {
+        console.log("last ten chat msgs: ", chatMsgs);
+    });
 };

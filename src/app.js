@@ -9,6 +9,7 @@ import OtherProfile from "./OtherProfile";
 import { Link } from "react-router-dom";
 import FindPeople from "./FindPeople";
 import Friends from "./Friends";
+import Chat from "./Chat";
 
 export default class App extends React.Component {
     constructor() {
@@ -156,6 +157,9 @@ export default class App extends React.Component {
                                 )}
                             />
                             <Route path="/friends" component={Friends} />
+                        </div>
+                        <div className="app-left">
+                            <Chat />
                         </div>
                     </div>
                 </div>

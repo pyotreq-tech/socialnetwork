@@ -16,12 +16,22 @@ const io = require("socket.io")(server, { origins: "localhost:8080" });
 
 app.use(express.json());
 
-app.use(
-    cookieSession({
-        secret: "This is my secret",
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-    })
-);
+// app.use(
+//     cookieSession({
+//         secret: "This is my secret",
+//         maxAge: 1000 * 60 * 60 * 24 * 14,
+//     })
+// );
+
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(compression());
 app.use(express.static("public"));
@@ -377,15 +387,35 @@ server.listen(8080, function () {
 // SOCKET CODE WILL RUN BELOW ALL HTTP CODE RUN ABOVE
 
 io.on("connection", (socket) => {
+    const cookie = socket.request.session.userId;
+    console.log(cookie);
     console.log(`socked with id ${socket.id} just connect!`);
+
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    io.sockets.emit("chatHistory", "text from db");
+
+    // receiving a new message from connected socket
+    socket.on("My amazing new msg", (newMsg) => {
+        console.log("received amazing new message from client: ", newMsg);
+        // we want to find out who send this msg
+        // cookie
+    });
+
+    socket.on("My amazing new message", (newMsg) => {
+        console.log("received msg:", newMsg);
+        socket.emit("newMsgaddedto History", newMsg);
+    });
 
     // sending messages to client from server
 
     //socket.emit - sends a message only to one client who has connected
 
-    socket.emit("welcome", {
-        name: "Piotr",
-    });
+    // socket.emit("welcome", {
+    //     name: "Piotr",
+    // });
 
     // io.emit -> everytime new user logs in, msg send to everybody
 
@@ -396,17 +426,17 @@ io.on("connection", (socket) => {
     // socket.broadcast.emit
     // everytime one user connects, other users see the broadcast, except the user who just connected
 
-    socket.broadcast.emit("broadcastEmitFun", {
-        id: socket.id,
-    });
+    // socket.broadcast.emit("broadcastEmitFun", {
+    //     id: socket.id,
+    // });
 
     // listening for a message from the client
 
-    socket.on("messageFromClient", (data) => {
-        console.log("here is our data: ", data);
-    });
+    // socket.on("messageFromClient", (data) => {
+    //     console.log("here is our data: ", data);
+    // });
 
-    socket.on("disconnect", () => {
-        console.log("user " + socket.id + "has disconnected");
-    });
+    // socket.on("disconnect", () => {
+    //     console.log("user " + socket.id + "has disconnected");
+    // });
 });
