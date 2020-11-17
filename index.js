@@ -412,6 +412,7 @@ io.on("connection", (socket) => {
             (onlineDisplay, index, self) =>
                 index === self.findIndex((t) => t.id === onlineDisplay.id)
         );
+        io.emit("onlineUsers", onlineDisplay);
     })();
 
     if (!socket.request.session.userId) {
@@ -467,5 +468,6 @@ io.on("connection", (socket) => {
             (onlineDisplay, index, self) =>
                 index === self.findIndex((t) => t.id === onlineDisplay.id)
         );
+        io.emit("onlineUsers", onlineDisplay);
     });
 });

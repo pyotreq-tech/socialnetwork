@@ -27,4 +27,7 @@ export const init = (store) => {
     socket.on("chatHistory", (chatMsgs) => {
         console.log("last ten chat msgs: ", chatMsgs);
     });
+    socket.on("onlineUsers", (onlineUsers) => {
+        console.log({ onlineUsers });
+    });
 };
