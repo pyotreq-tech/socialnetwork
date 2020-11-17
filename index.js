@@ -227,6 +227,20 @@ app.get("/getWall/:id", async (req, res) => {
     res.json(rows);
 });
 
+app.post("/postComment", async (req, res) => {
+    console.log("postComment req.body: ", req.body);
+    const { post_id, author_id, comment } = req.body;
+    const { rows } = await db.postComment(post_id, author_id, comment);
+    res.json(rows);
+});
+
+app.get("/getComments/:id", async (req, res) => {
+    console.log("getcomments route hit");
+    const { id } = req.params;
+    const { rows } = await db.displayComments(id);
+    res.json(rows);
+});
+
 app.get("/api/user/:id", async (req, res) => {
     const { id } = req.params;
     const { userId } = req.session;

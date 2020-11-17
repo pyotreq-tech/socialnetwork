@@ -136,6 +136,13 @@ exports.postWall = (userId, authorId, content, imageUrl) => {
         [userId, authorId, content, imageUrl]
     );
 };
+exports.postComment = (postId, authorId, comment) => {
+    return db.query(
+        `INSERT INTO comments (post_id, author_id, comment) VALUES ($1, $2, $3) RETURNING *;
+`,
+        [postId, authorId, comment]
+    );
+};
 // exports.displayWall = (id) => {
 //     return db.query(
 //         `SELECT users.first AS first, users.last AS last, users.profileimage AS profileimage, wall.timestamp, wall.content, wall.image_url
@@ -151,6 +158,13 @@ exports.postWall = (userId, authorId, content, imageUrl) => {
 exports.displayWall = (id) => {
     return db.query(
         `SELECT * FROM wall WHERE user_id = $1  ORDER BY timestamp DESC
+`,
+        [id]
+    );
+};
+exports.displayComments = (id) => {
+    return db.query(
+        `SELECT * FROM comments WHERE post_id = $1  ORDER BY timestamp DESC
 `,
         [id]
     );
