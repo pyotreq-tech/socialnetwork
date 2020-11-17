@@ -9,6 +9,11 @@ export default class OtherProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.isFriend = this.isFriend.bind(this);
+    }
+
+    isFriend(message) {
+        this.setState({ message: message });
     }
 
     componentDidMount() {
@@ -61,7 +66,11 @@ export default class OtherProfile extends React.Component {
                     <h2>
                         {this.state.first} {this.state.last}
                     </h2>
-                    <FriendButton id={this.state.id} key={this.state.id} />
+                    <FriendButton
+                        id={this.state.id}
+                        key={this.state.id}
+                        isFriend={this.isFriend}
+                    />
                     {this.state.bio && (
                         <div className="content" style={{ padding: "5px" }}>
                             {this.state.bio}
@@ -69,7 +78,9 @@ export default class OtherProfile extends React.Component {
                     )}
                 </div>
 
-                <WallPosts id={this.state.id} first={this.state.first} />
+                {this.state.message == "End Friendship" && (
+                    <WallPosts id={this.state.id} first={this.state.first} />
+                )}
             </>
         );
     }
