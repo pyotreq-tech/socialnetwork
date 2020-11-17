@@ -18,8 +18,8 @@ export default class App extends React.Component {
         this.state = {
             uploaderIsVisible: false,
             // profileComponent: false,
-            chatIsOn: false,
-            findPeopleIsOn: false,
+            chatIsOn: true,
+            findPeopleIsOn: true,
         };
         this.methodInApp = this.methodInApp.bind(this);
     }

@@ -89,6 +89,7 @@ export default function WallPosts({ id, first }) {
                             </h3>
                             <h4>{each.content}</h4>
                             <img src={each.image_url}></img>
+
                             <Comments
                                 post_id={each.id}
                                 author_id={each.author_id}

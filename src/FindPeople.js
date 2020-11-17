@@ -130,9 +130,8 @@ export default function FindPeople() {
             )}
             {!user && (
                 <>
-                    <div className="section">
-                        <h1>Joined recently:</h1>
-                    </div>
+                    <h1 style={{ textAlign: "center" }}>Joined recently:</h1>
+
                     {threeUsers.map((each) => (
                         <div
                             key={each.id}

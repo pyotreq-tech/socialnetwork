@@ -35,11 +35,12 @@
 --     content TEXT,
 --     image_url TEXT
 -- );
-DROP TABLE IF EXISTS comments CASCADE;
-CREATE TABLE comments(
-    id SERIAL PRIMARY KEY,
-    post_id INT REFERENCES wall(id) NOT NULL,
-    author_id INT REFERENCES users(id) NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    comment TEXT
-);
+
+-- DROP TABLE IF EXISTS comments CASCADE;
+-- CREATE TABLE comments(
+--     id SERIAL PRIMARY KEY,
+--     post_id INT REFERENCES wall(id) NOT NULL,
+--     author_id INT REFERENCES users(id) NOT NULL,
+--     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     comment TEXT
+-- );
