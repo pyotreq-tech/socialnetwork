@@ -131,14 +131,26 @@ exports.addFriendRequest = (receipent, sender, accepted) => {
 };
 exports.postWall = (userId, authorId, content, imageUrl) => {
     return db.query(
-        `INSERT INTO wall (user_id, author_id, content, image_url) VALUES ($1, $2, $3, $4);
+        `INSERT INTO wall (user_id, author_id, content, image_url) VALUES ($1, $2, $3, $4) RETURNING *;
 `,
         [userId, authorId, content, imageUrl]
     );
 };
+// exports.displayWall = (id) => {
+//     return db.query(
+//         `SELECT users.first AS first, users.last AS last, users.profileimage AS profileimage, wall.timestamp, wall.content, wall.image_url
+//         FROM users
+//         JOIN wall
+//         ON users.id = wall.user_id
+//         WHERE wall.user_id = $1
+//         ORDER by timestamp DESC;
+// `,
+//         [id]
+//     );
+// };
 exports.displayWall = (id) => {
     return db.query(
-        `SELECT * FROM wall WHERE user_id = $1;
+        `SELECT * FROM wall WHERE user_id = $1  ORDER BY timestamp DESC
 `,
         [id]
     );

@@ -205,11 +205,11 @@ app.get("/api/users", async (req, res) => {
     res.json(rows);
 });
 app.post("/postWall", async (req, res) => {
-    console.log(req.body);
     const { user_id, author_id, content, image_url } = req.body;
-    const { data } = await db.postWall(user_id, author_id, content, image_url);
-    res.json({ success: true });
+    const { rows } = await db.postWall(user_id, author_id, content, image_url);
+    res.json(rows);
 });
+
 app.get("/getWall/:id", async (req, res) => {
     const { id } = req.params;
     const { rows } = await db.displayWall(id);
@@ -312,6 +312,7 @@ app.post("/register", (req, res) => {
         .then((result) => {
             const { id } = result.rows[0];
             req.session.userId = id;
+
             res.json({ success: true });
         })
         .catch((err) => {

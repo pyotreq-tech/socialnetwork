@@ -10,20 +10,24 @@ export default function WallPosts({ id, first }) {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        (async () => {
-            let { data } = await axios.get(`/getWall/${id}`);
-            await setPosts(data);
-        })();
-    }, [url]);
+        if (id) {
+            (async () => {
+                let { data } = await axios.get(`/getWall/${id}`);
+                await setPosts(data);
+            })();
+        }
+    }, [id]);
 
     useEffect(() => {
-        (async () => {
-            let { data } = await axios.get(`/checkFriendStatus/${id}`);
-            if (data.button == "End Friendship" || id == data.id) {
-                setIsFriend(true);
-                setAuthorId(data.id);
-            }
-        })();
+        if (id) {
+            (async () => {
+                let { data } = await axios.get(`/checkFriendStatus/${id}`);
+                if (data.button == "End Friendship" || id == data.id) {
+                    setIsFriend(true);
+                    setAuthorId(data.id);
+                }
+            })();
+        }
     });
 
     function onChange(e) {
@@ -40,6 +44,8 @@ export default function WallPosts({ id, first }) {
             content,
             image_url: url,
         });
+        await setPosts([...data, ...posts]);
+        console.log("posts: ", posts);
     }
 
     return (
@@ -75,14 +81,13 @@ export default function WallPosts({ id, first }) {
 
                     {posts.map((each) => (
                         <div className="section" key={each.id}>
-                            <img src={each.image_url}></img>
-
                             <h3>
-                                Posted by {each.author_id} at{" "}
+                                {each.author_id} to {each.user_id} &nbsp;
                                 {each.timestamp.slice(0, 10)}{" "}
                                 {each.timestamp.slice(11, 16)}
                             </h3>
                             <h4>{each.content}</h4>
+                            <img src={each.image_url}></img>
                         </div>
                     ))}
                 </>
