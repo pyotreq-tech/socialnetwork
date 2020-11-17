@@ -23,85 +23,133 @@ export default function Friends() {
 
     return (
         <>
-            <h1>Hi, I am a friends component</h1>
-            {friends && <div> Your friends: </div>}
-            {friends &&
-                friends.map((each) => (
-                    <div
-                        key={each.id}
-                        className="section"
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            alignSelf: "center",
-                            width: "150px",
-                        }}
-                    >
-                        <Link
-                            to={`/user/${each.id}`}
+            {friends && <h1 style={{ textAlign: "center" }}> Friends: </h1>}
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                }}
+            >
+                {friends &&
+                    friends.map((each) => (
+                        <div
+                            key={each.id}
+                            className="section"
                             style={{
-                                textDecoration: "none",
-                                textAlign: "center",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                alignSelf: "center",
+                                width: "110px",
+                                height: "190px",
                             }}
                         >
-                            <img
-                                src={each.profileimage || "/empty-image.jpg"}
-                            />
-                            <br />
-                            {each.first} {each.last}
-                        </Link>
-                        <button
+                            <Link
+                                to={`/user/${each.id}`}
+                                style={{
+                                    textDecoration: "none",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <img
+                                    style={{
+                                        maxWidth: "110px",
+                                    }}
+                                    src={
+                                        each.profileimage || "/empty-image.jpg"
+                                    }
+                                />
+                                <br />
+                                <p style={{ marginTop: "5px" }}>
+                                    {each.first} {each.last}
+                                </p>
+                            </Link>
+                            <button
+                                style={{
+                                    // marginTop: "5px",
+                                    fontSize: "0.8rem",
+                                    border: "none",
+                                    backgroundColor: "teal",
+                                    color: "white",
+                                    width: "120px",
+                                    height: "20px",
+                                    backgroundImage:
+                                        "linear-gradient(to top, teal, lightsteelblue)",
+                                }}
+                                className="input-registration"
+                                onClick={() => dispatch(unfriend(each.id))}
+                            >
+                                Remove Friend
+                            </button>
+                        </div>
+                    ))}
+            </div>
+
+            <h1 style={{ textAlign: "center" }}> Friends requests: </h1>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                }}
+            >
+                {wannabes &&
+                    wannabes.map((each) => (
+                        <div
+                            key={each.id}
+                            className="section"
                             style={{
-                                backgroundColor: "teal",
-                                color: "white",
-                            }}
-                            className="input-registration"
-                            onClick={() => dispatch(unfriend(each.id))}
-                        >
-                            Remove Friend
-                        </button>
-                    </div>
-                ))}
-            {wannabes && <div> Your wannabees: </div>}
-            {wannabes &&
-                wannabes.map((each) => (
-                    <div
-                        key={each.id}
-                        className="section"
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            alignSelf: "center",
-                            width: "150px",
-                        }}
-                    >
-                        <Link
-                            to={`/user/${each.id}`}
-                            style={{
-                                textDecoration: "none",
-                                textAlign: "center",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                alignSelf: "center",
+                                width: "110px",
+                                height: "190px",
                             }}
                         >
-                            <img
-                                src={each.profileimage || "/empty-image.jpg"}
-                            />
-                            <br />
-                            {each.first} {each.last}
-                        </Link>
-                        <button
-                            style={{
-                                backgroundColor: "teal",
-                                color: "white",
-                            }}
-                            className="input-registration"
-                            onClick={() => dispatch(acceptFriend(each.id))}
-                        >
-                            Accept Request
-                        </button>
-                    </div>
-                ))}
+                            <Link
+                                to={`/user/${each.id}`}
+                                style={{
+                                    textDecoration: "none",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <img
+                                    style={{
+                                        maxWidth: "110px",
+                                    }}
+                                    src={
+                                        each.profileimage || "/empty-image.jpg"
+                                    }
+                                />
+                                <br />
+                                <p style={{ marginTop: "5px" }}>
+                                    {each.first} {each.last}
+                                </p>
+                            </Link>
+                            <button
+                                style={{
+                                    // marginTop: "5px",
+                                    fontSize: "0.8rem",
+                                    border: "none",
+                                    backgroundColor: "teal",
+                                    color: "white",
+                                    width: "120px",
+                                    height: "20px",
+                                    backgroundImage:
+                                        "linear-gradient(to top, teal, lightsteelblue)",
+                                }}
+                                className="input-registration"
+                                onClick={() => dispatch(acceptFriend(each.id))}
+                            >
+                                Accept Friend
+                            </button>
+                        </div>
+                    ))}
+            </div>
         </>
     );
 }

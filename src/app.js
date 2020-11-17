@@ -76,7 +76,7 @@ export default class App extends React.Component {
                                 className="navbar-icon"
                                 // onClick={() => this.toggleComponent("profileComponent")}
                             >
-                                <i class="fas fa-users"></i>
+                                <i className="fas fa-users"></i>
                             </div>
                         </Link>
                         <Link to="/" style={{ textDecoration: "none" }}>
@@ -92,7 +92,7 @@ export default class App extends React.Component {
                             className="navbar-icon"
                             onClick={() => this.toggleComponent("chatIsOn")}
                         >
-                            <i class="fab fa-speakap"></i>
+                            <i className="fab fa-speakap"></i>
                         </div>
 
                         <Link to="/uploader">
