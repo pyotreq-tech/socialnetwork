@@ -189,3 +189,10 @@ exports.acceptFriendRequest = (receipent, sender, accepted) => {
         [receipent, sender, accepted]
     );
 };
+
+exports.getOnline = (id) => {
+    return db.query(
+        `SELECT id, first, last, profileimage FROM users WHERE id = $1;`,
+        [id]
+    );
+};

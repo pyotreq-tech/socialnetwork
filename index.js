@@ -223,19 +223,19 @@ app.post("/postWall", async (req, res) => {
 app.get("/getWall/:id", async (req, res) => {
     const { id } = req.params;
     const { rows } = await db.displayWall(id);
-    console.log("INFO FROM GETWALLPOSTA: ", rows);
+    // console.log("INFO FROM GETWALLPOSTA: ", rows);
     res.json(rows);
 });
 
 app.post("/postComment", async (req, res) => {
-    console.log("postComment req.body: ", req.body);
+    // console.log("postComment req.body: ", req.body);
     const { post_id, author_id, comment } = req.body;
     const { rows } = await db.postComment(post_id, author_id, comment);
     res.json(rows);
 });
 
 app.get("/getComments/:id", async (req, res) => {
-    console.log("getcomments route hit");
+    // console.log("getcomments route hit");
     const { id } = req.params;
     const { rows } = await db.displayComments(id);
     res.json(rows);
@@ -399,11 +399,20 @@ server.listen(8080, function () {
 });
 
 // SOCKET CODE WILL RUN BELOW ALL HTTP CODE RUN ABOVE
+let online = [];
 
 io.on("connection", (socket) => {
-    const cookie = socket.request.session.userId;
-    console.log(cookie);
-    console.log(`socked with id ${socket.id} just connect!`);
+    const { userId } = socket.request.session;
+
+    (async () => {
+        const { rows } = await db.getOnline(userId);
+        online.push(rows[0]);
+        let onlineDisplay = [...online];
+        onlineDisplay = onlineDisplay.filter(
+            (onlineDisplay, index, self) =>
+                index === self.findIndex((t) => t.id === onlineDisplay.id)
+        );
+    })();
 
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
@@ -450,7 +459,13 @@ io.on("connection", (socket) => {
     //     console.log("here is our data: ", data);
     // });
 
-    // socket.on("disconnect", () => {
-    //     console.log("user " + socket.id + "has disconnected");
-    // });
+    socket.on("disconnect", () => {
+        const toDelete = online.find((user) => user.id == userId);
+        online.shift(toDelete);
+        onlineDisplay = [...online];
+        onlineDisplay = onlineDisplay.filter(
+            (onlineDisplay, index, self) =>
+                index === self.findIndex((t) => t.id === onlineDisplay.id)
+        );
+    });
 });
