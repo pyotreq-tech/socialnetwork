@@ -34,7 +34,7 @@ export default function Chat() {
                 <div
                     ref={elemRef}
                     className="chatMessages"
-                    style={{ height: "400px", overflow: "scroll" }}
+                    style={{ height: "415px", overflow: "scroll" }}
                 >
                     <p>single chat msg</p>
                     <p>single chat msg</p>

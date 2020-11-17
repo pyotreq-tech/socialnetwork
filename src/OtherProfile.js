@@ -52,14 +52,21 @@ export default class OtherProfile extends React.Component {
                             e.target.onerror = null;
                             e.target.src = "/empty-image.jpg";
                         }}
-                        style={{ border: "4px teal solid" }}
+                        style={{
+                            border: "4px teal solid",
+                            borderRadius: "50%",
+                        }}
                     />
 
                     <h2>
                         {this.state.first} {this.state.last}
                     </h2>
                     <FriendButton id={this.state.id} key={this.state.id} />
-                    <p>{this.state.bio}</p>
+                    {this.state.bio && (
+                        <div className="content" style={{ padding: "5px" }}>
+                            {this.state.bio}
+                        </div>
+                    )}
                 </div>
 
                 <WallPosts id={this.state.id} first={this.state.first} />

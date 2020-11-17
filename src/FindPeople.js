@@ -99,7 +99,7 @@ export default function FindPeople() {
                                 //     console.log("input select: ", input);
                                 // }}
                             >
-                                <div>
+                                <div class="content">
                                     <img
                                         src={
                                             eachUser.profileimage ||
@@ -112,10 +112,11 @@ export default function FindPeople() {
                                         // alt={"Profile Picture"}
                                         style={{ width: "50px" }}
                                     />
+
+                                    <span style={{ marginLeft: "30px" }}>
+                                        {eachUser.first} {eachUser.last}
+                                    </span>
                                 </div>
-                                <span style={{ marginLeft: "30px" }}>
-                                    {eachUser.first} {eachUser.last}
-                                </span>
                             </div>
                         </Link>
                     ))}

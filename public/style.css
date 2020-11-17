@@ -2,9 +2,9 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Raleway", sans-serif;
+    font-family: "Lato", sans-serif;
     overflow: hidden;
-    background-color: #f0f2f5;
+    background-color: #32373e;
 }
 
 /* Welcome page styling: */
@@ -13,7 +13,6 @@ body {
     display: flex;
     flex-direction: column;
     width: 100vw;
-
     justify-content: center;
     align-items: center;
 }
@@ -98,7 +97,7 @@ body {
 }
 
 .app-navbar {
-    background-color: white;
+    background-color: #27292b;
     display: flex;
     flex-direction: row;
     flex-flow: row wrap;
@@ -107,13 +106,12 @@ body {
     height: 60px;
     justify-content: space-around;
     align-items: center;
-    box-shadow: 0 0.1rem 0 rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0.1rem 0 rgba(0, 0, 0, 0.1); */
+    box-shadow: 0px 2px 8px 2px #000000;
 }
 .app-body {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-around; */
-    /* flex-flow: row wrap; */
 }
 .app-left {
     width: 350px;
@@ -122,8 +120,6 @@ body {
     margin-top: 10px;
     height: 88vh;
     padding: 0 50px;
-
-    /* border-right: 1px #d3d3d3 solid; */
     overflow-y: auto;
 }
 
@@ -138,12 +134,30 @@ body {
     margin-top: 10px;
 }
 
+.app-chat {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    height: 88vh;
+    padding: 0 50px;
+    overflow-y: auto;
+}
 .section {
-    background-color: white;
-    border-radius: 20px;
+    background-color: #27292b;
+    border-radius: 5px;
     margin: 10px 20px;
     padding: 20px;
-    box-shadow: 0 0.1rem 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 8px 2px #000000;
+}
+
+.content {
+    background-color: #323436;
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .friends-section {
@@ -184,20 +198,42 @@ a {
     resize: none;
 }
 
-/* Scrollbar styling: */
+/* Scrollbar styling for app-left container: */
 
-::-webkit-scrollbar {
+.app-left::-webkit-scrollbar {
     width: 10px;
 }
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
+.app-left::-webkit-scrollbar-track {
+    background: ##32373e;
 }
-::-webkit-scrollbar-thumb {
+.app-left::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background: #f0f2f5;
-    /* background: #d3d3d3; */
-    /* background: #d3d3d3; */
+    background: ##32373e;
 }
-::-webkit-scrollbar-thumb:hover {
-    background: #d3d3d3;
+.app-left:hover::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #27292b;
+}
+.app-left::-webkit-scrollbar-thumb:hover {
+    background: #1d1d1d;
+}
+
+/* Scrollbar styling for app-right container  */
+
+.app-right::-webkit-scrollbar {
+    width: 10px;
+}
+.app-right::-webkit-scrollbar-track {
+    background: #32373e;
+}
+.app-right::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #32373e;
+}
+.app-right:hover::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #27292b;
+}
+.app-right::-webkit-scrollbar-thumb:hover {
+    background: #1d1d1d;
 }

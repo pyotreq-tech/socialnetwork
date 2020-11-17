@@ -18,6 +18,8 @@ export default class App extends React.Component {
         this.state = {
             uploaderIsVisible: false,
             // profileComponent: false,
+            chatIsOn: false,
+            findPeopleIsOn: false,
         };
         this.methodInApp = this.methodInApp.bind(this);
     }
@@ -61,7 +63,13 @@ export default class App extends React.Component {
             <BrowserRouter>
                 <div className="app-container">
                     <div className="app-navbar">
-                        <Logo />
+                        <div
+                            onClick={() =>
+                                this.toggleComponent("findPeopleIsOn")
+                            }
+                        >
+                            <Logo />
+                        </div>
 
                         <Link to="/friends" style={{ textDecoration: "none" }}>
                             <div
@@ -79,15 +87,13 @@ export default class App extends React.Component {
                                 <i className="fas fa-user"></i>
                             </div>
                         </Link>
-                        <Link to="/" style={{ textDecoration: "none" }}>
-                            <div
-                                className="navbar-icon"
 
-                                // onClick={() => this.toggleComponent("profileComponent")}
-                            >
-                                <i class="fas fa-comments"></i>
-                            </div>
-                        </Link>
+                        <div
+                            className="navbar-icon"
+                            onClick={() => this.toggleComponent("chatIsOn")}
+                        >
+                            <i class="fab fa-speakap"></i>
+                        </div>
 
                         <Link to="/uploader">
                             <ProfilePicture
@@ -113,8 +119,12 @@ export default class App extends React.Component {
                         </a>
                     </div>
                     <div className="app-body">
-                        <div className="app-left">
-                            <FindPeople />
+                        <div
+                            className="app-left"
+                            onMouseEnter={() => console.log("LOL1")}
+                            onMouseLeave={() => console.log("LOL2")}
+                        >
+                            {this.state.findPeopleIsOn && <FindPeople />}
                         </div>
                         <div className="app-right">
                             {/* {this.state.profileComponent && ( */}
@@ -158,9 +168,11 @@ export default class App extends React.Component {
                             />
                             <Route path="/friends" component={Friends} />
                         </div>
-                        <div className="app-left">
-                            <Chat />
-                        </div>
+                        {this.state.chatIsOn && (
+                            <div className="app-chat">
+                                <Chat />
+                            </div>
+                        )}
                     </div>
                 </div>
             </BrowserRouter>
