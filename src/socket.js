@@ -1,6 +1,7 @@
 // src/socket.js
 
 import * as io from "socket.io-client";
+import { chatMessages, newMessage } from "./actions";
 
 export let socket;
 export const init = (store) => {
@@ -26,8 +27,15 @@ export const init = (store) => {
 
     socket.on("chatHistory", (chatMsgs) => {
         console.log("last ten chat msgs: ", chatMsgs);
+        store.dispatch(chatMessages(chatMsgs));
     });
-    socket.on("onlineUsers", (onlineUsers) => {
-        console.log({ onlineUsers });
+
+    socket.on("addedNewMessage", (chatMsgs) => {
+        console.log("New message had been added: ", chatMsgs);
+        store.dispatch(newMessage(chatMsgs));
     });
+
+    // socket.on("onlineUsers", (onlineUsers) => {
+    //     console.log({ onlineUsers });
+    // });
 };

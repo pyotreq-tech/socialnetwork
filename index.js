@@ -419,18 +419,14 @@ io.on("connection", (socket) => {
         return socket.disconnect(true);
     }
 
-    io.sockets.emit("chatHistory", "text from db");
+    (async () => {
+        const { rows } = await db.getShoutbox();
+        io.sockets.emit("chatHistory", rows.reverse());
+    })();
 
-    // receiving a new message from connected socket
-    socket.on("My amazing new msg", (newMsg) => {
-        console.log("received amazing new message from client: ", newMsg);
-        // we want to find out who send this msg
-        // cookie
-    });
-
-    socket.on("My amazing new message", (newMsg) => {
-        console.log("received msg:", newMsg);
-        socket.emit("newMsgaddedto History", newMsg);
+    socket.on("addNewMessage", async (newMsg) => {
+        const { rows } = await db.addShoutbox(userId, newMsg);
+        await io.sockets.emit("addedNewMessage", rows);
     });
 
     // sending messages to client from server

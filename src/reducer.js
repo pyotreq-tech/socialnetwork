@@ -56,5 +56,18 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "CHAT_MESSAGES") {
+        state = Object.assign({}, state, {
+            chatMessages: action.chatMessages,
+        });
+    }
+
+    if (action.type == "NEW_MESSAGE") {
+        state = {
+            ...state,
+            chatMessages: [...state.chatMessages, ...action.newMessage],
+        };
+    }
+
     return state;
 }

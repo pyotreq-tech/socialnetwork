@@ -196,3 +196,14 @@ exports.getOnline = (id) => {
         [id]
     );
 };
+
+exports.getShoutbox = () => {
+    return db.query(`SELECT * FROM shoutbox ORDER BY timestamp DESC LIMIT 10`);
+};
+
+exports.addShoutbox = (author_id, message) => {
+    return db.query(
+        `INSERT INTO shoutbox (author_id, message) VALUES ($1, $2) RETURNING *`,
+        [author_id, message]
+    );
+};

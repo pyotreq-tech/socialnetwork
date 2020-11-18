@@ -44,3 +44,13 @@
 --     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 --     comment TEXT
 -- );
+
+-- DROP TABLE IF EXISTS shoutbox CASCADE;
+-- CREATE TABLE shoutbox(
+--     id SERIAL PRIMARY KEY,
+--     author_id INT REFERENCES users(id) NOT NULL,
+--     message TEXT,
+--     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
+-- INSERT INTO shoutbox (author_id, message) VALUES (1, 'Welcome');
