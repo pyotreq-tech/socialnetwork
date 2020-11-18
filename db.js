@@ -157,15 +157,16 @@ exports.postComment = (postId, authorId, comment) => {
 // };
 exports.displayWall = (id) => {
     return db.query(
-        `SELECT * FROM wall WHERE user_id = $1  ORDER BY timestamp DESC
+        `SELECT wall.author_id AS author_id, wall.id AS id, users.first AS first, users.last AS last, wall.timestamp AS timestamp, wall.content AS content, wall.image_url AS image_url, users.profileimage AS profileimage FROM wall JOIN users ON author_id = users.id WHERE user_id = $1  ORDER BY timestamp DESC
 `,
         [id]
     );
 };
 exports.displayComments = (id) => {
     return db.query(
-        `SELECT * FROM comments WHERE post_id = $1  ORDER BY timestamp DESC
-`,
+        // `SELECT * FROM comments WHERE post_id = $1  ORDER BY timestamp DESC`
+        `SELECT users.profileimage AS profileimage, users.first AS first, users.last AS last, comments.post_id AS post_id, comments.author_id AS author_id, comments.timestamp AS timestamp, comments.comment AS comment FROM comments JOIN users ON author_id = users.id WHERE post_id = $1  ORDER BY timestamp DESC`,
+
         [id]
     );
 };

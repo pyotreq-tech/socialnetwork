@@ -22,21 +22,35 @@ export default function Chat() {
 
     return (
         <>
-            <div className="section">
+            <div className="section" style={{ height: "600px" }}>
                 <h1>Welcome to Chat</h1>
                 <div
                     ref={elemRef}
                     className="chatMessages"
-                    style={{ height: "415px", overflow: "scroll" }}
+                    style={{ height: "415px", overflowY: "auto" }}
                 >
                     {chatMessages &&
                         chatMessages.map((each) => (
                             <>
-                                <p>
-                                    {each.author_id}
-                                    {each.timestamp}
-                                </p>
-                                <p>{each.message}</p>
+                                <div
+                                    style={{
+                                        backgroundColor: "#808184",
+                                        padding: "2px 4px",
+                                        marginBottom: "3px",
+                                    }}
+                                >
+                                    <p style={{ margin: "0" }}>
+                                        {each.author_id}
+                                        {each.timestamp}
+                                    </p>
+                                    <p
+                                        style={{
+                                            margin: "0",
+                                        }}
+                                    >
+                                        {each.message}
+                                    </p>
+                                </div>
                             </>
                         ))}
                 </div>

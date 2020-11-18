@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 export default function Comments({ post_id, author_id }) {
     const [comment, setComment] = useState();
@@ -81,15 +82,41 @@ export default function Comments({ post_id, author_id }) {
                             }}
                             key={each.id}
                         >
-                            <div>
-                                <p style={{ margin: "3px 6px" }}>
-                                    Post id: {each.post_id} by: {each.author_id}{" "}
-                                    &nbsp;
-                                    {each.timestamp.slice(0, 10)}{" "}
-                                    {each.timestamp.slice(11, 16)}
-                                </p>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                }}
+                            >
+                                <Link to={`/user/${each.author_id}`}>
+                                    <img
+                                        src={
+                                            each.profileimage ||
+                                            "/empty-image.jpg"
+                                        }
+                                        alt={each.first + " " + each.last}
+                                        className={"mini-logo"}
+                                        style={{
+                                            margin: "5px",
+                                            width: "35px",
+                                            height: "35px",
+                                        }}
+                                    />
+                                </Link>
+                                <div>
+                                    <p style={{ margin: "3px 4px" }}>
+                                        <strong>
+                                            {each.first} {each.last}
+                                        </strong>
+                                        {/* &nbsp;
+                                        {each.timestamp.slice(0, 10)}{" "}
+                                        {each.timestamp.slice(11, 16)} */}
+                                    </p>
+                                    <p style={{ margin: "3px 6px" }}>
+                                        {each.comment}
+                                    </p>
+                                </div>
                             </div>
-                            <p style={{ margin: "3px 6px" }}>{each.comment}</p>
                         </div>
                     ))}
                 </>

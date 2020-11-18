@@ -84,18 +84,34 @@ export default function WallPosts({ id, first }) {
 
                     {posts.map((each) => (
                         <div className="section" key={each.id}>
-                            <h3>
-                                {each.author_id} to {each.user_id} &nbsp;
-                                {each.timestamp.slice(0, 10)}{" "}
-                                {each.timestamp.slice(11, 16)}
-                            </h3>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                }}
+                            >
+                                <Link to={`/user/${each.author_id}`}>
+                                    <img
+                                        src={
+                                            each.profileimage ||
+                                            "/empty-image.jpg"
+                                        }
+                                        alt={each.first + " " + each.last}
+                                        className={"mini-logo"}
+                                    />
+                                </Link>
+
+                                <h3 style={{ marginLeft: "15px" }}>
+                                    {each.first} &nbsp;
+                                    {each.last} &nbsp;
+                                    {each.timestamp.slice(0, 10)}{" "}
+                                    {each.timestamp.slice(11, 16)}
+                                </h3>
+                            </div>
                             <h4>{each.content}</h4>
                             <img src={each.image_url}></img>
 
-                            <Comments
-                                post_id={each.id}
-                                author_id={each.author_id}
-                            />
+                            <Comments post_id={each.id} author_id={authorId} />
                         </div>
                     ))}
                 </>

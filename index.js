@@ -223,7 +223,6 @@ app.post("/postWall", async (req, res) => {
 app.get("/getWall/:id", async (req, res) => {
     const { id } = req.params;
     const { rows } = await db.displayWall(id);
-    // console.log("INFO FROM GETWALLPOSTA: ", rows);
     res.json(rows);
 });
 
@@ -238,6 +237,7 @@ app.get("/getComments/:id", async (req, res) => {
     // console.log("getcomments route hit");
     const { id } = req.params;
     const { rows } = await db.displayComments(id);
+    console.log("Display comments: ", rows);
     res.json(rows);
 });
 
