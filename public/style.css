@@ -161,7 +161,7 @@ button {
 }
 
 .content {
-    background-color: #323436;
+    background-color: #424446;
     border-radius: 5px;
     width: 100%;
     display: flex;
@@ -186,6 +186,10 @@ button {
 .chatMessage {
     width: 235px;
     /* background-color: red; */
+}
+
+div.Magda:nth-child(odd) div.chatMessage {
+    background-color: #5c5d61;
 }
 
 /* Navbar styling: */

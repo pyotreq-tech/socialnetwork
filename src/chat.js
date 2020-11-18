@@ -44,6 +44,7 @@ export default function Chat() {
                         chatMessages.map((each) => (
                             <>
                                 <div
+                                    class="Magda"
                                     style={{
                                         display: "flex",
                                         flexDirection: "column",

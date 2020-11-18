@@ -137,8 +137,15 @@ export default function WallPosts({ id, first }) {
                                     {each.timestamp.slice(11, 16)}
                                 </h3>
                             </div>
-                            <h4>{each.content}</h4>
-                            <img src={each.image_url}></img>
+                            <div class="content">
+                                <p style={{ margin: "5px 5px" }}>
+                                    {each.content}
+                                </p>
+                            </div>
+                            <img
+                                style={{ marginTop: "15px" }}
+                                src={each.image_url}
+                            ></img>
 
                             <Comments post_id={each.id} author_id={authorId} />
                         </div>
