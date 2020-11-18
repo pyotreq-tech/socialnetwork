@@ -58,14 +58,37 @@ export default function WallPosts({ id, first }) {
                     <div className="section">
                         <h2>Write on {first} wall </h2>
                         <textarea
+                            placeholder="Your post goes here"
                             onChange={onChange}
                             name="content"
-                            className={"bio-textarea"}
+                            style={{
+                                backgroundColor: "#323436",
+                                color: "rgba(255, 255, 255, 0.8)",
+                                outline: "none",
+                                fontFamily: "Lato",
+                                // marginLeft: "20px",
+                                marginTop: "15px",
+                                width: "350px",
+                                height: "200px",
+                                overflow: "hidden",
+                            }}
                         />
                         <input
                             type="text"
                             onChange={onChangeUrl}
                             name="image_url"
+                            placeholder="Type url here"
+                            style={{
+                                display: "block",
+                                backgroundColor: "#323436",
+                                color: "rgba(255, 255, 255, 0.8)",
+                                outline: "none",
+                                fontFamily: "Lato",
+                                // marginLeft: "20px",
+                                marginTop: "15px",
+                                width: "230px",
+                                overflow: "hidden",
+                            }}
                             // className={"bio-textarea"}
                         />
                         <button
@@ -79,6 +102,7 @@ export default function WallPosts({ id, first }) {
                                 width: "120px",
                                 height: "20px",
                                 margin: "0",
+                                marginTop: "15px",
                                 backgroundImage:
                                     "linear-gradient(to top, teal, lightsteelblue)",
                             }}

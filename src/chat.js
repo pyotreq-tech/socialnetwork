@@ -75,9 +75,18 @@ export default function Chat() {
                                                 <strong>
                                                     {each.first} {each.last}
                                                 </strong>
-                                                {/* &nbsp;
-                                        {each.timestamp.slice(0, 10)}{" "}
-                                        {each.timestamp.slice(11, 16)} */}
+                                                &nbsp;
+                                                {/* {each.timestamp.slice(0, 10)} */}
+                                                <span
+                                                    style={{
+                                                        fontSize: "0.8rem",
+                                                    }}
+                                                >
+                                                    {each.timestamp.slice(
+                                                        11,
+                                                        16
+                                                    )}
+                                                </span>
                                             </p>
                                             <p style={{ margin: "3px 6px" }}>
                                                 {each.message}

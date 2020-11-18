@@ -51,6 +51,17 @@ export default function Comments({ post_id, author_id }) {
                         type="text"
                         name="comment"
                         placeholder="write your comment"
+                        style={{
+                            display: "block",
+                            backgroundColor: "#323436",
+                            color: "rgba(255, 255, 255, 0.8)",
+                            outline: "none",
+                            fontFamily: "Lato",
+                            // marginLeft: "20px",
+                            marginTop: "15px",
+                            width: "230px",
+                            overflow: "hidden",
+                        }}
                     ></input>
                     <button
                         onClick={handleClick}
@@ -63,6 +74,7 @@ export default function Comments({ post_id, author_id }) {
                             width: "120px",
                             height: "20px",
                             margin: "0",
+                            marginTop: "15px",
                             backgroundImage:
                                 "linear-gradient(to top, teal, lightsteelblue)",
                         }}
