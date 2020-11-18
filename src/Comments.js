@@ -4,17 +4,19 @@ import axios from "./axios";
 export default function Comments({ post_id, author_id }) {
     const [comment, setComment] = useState();
     const [comments, setComments] = useState([]);
-
     const [commentsOn, setCommentsOn] = useState(false);
+    const [update, setUpdate] = useState();
 
     useEffect(() => {
+        setUpdate(false);
         if (post_id) {
             (async () => {
                 let { data } = await axios.get(`/getComments/${post_id}`);
                 await setComments(data);
             })();
         }
-    }, [post_id]);
+        console.log("infinite?");
+    }, [update]);
 
     function onChange(e) {
         setComment(e.target.value);
@@ -24,13 +26,13 @@ export default function Comments({ post_id, author_id }) {
         setCommentsOn(!commentsOn);
     }
 
-    async function handleClick() {
+    async function handleClick(e) {
         const { data } = await axios.post("/postComment", {
             post_id: post_id,
             author_id: author_id,
             comment: comment,
         });
-        await setComments([...data, ...comments]);
+        setUpdate(true);
     }
 
     return (
@@ -47,6 +49,7 @@ export default function Comments({ post_id, author_id }) {
                         onChange={onChange}
                         type="text"
                         name="comment"
+                        placeholder="write your comment"
                     ></input>
                     <button
                         onClick={handleClick}

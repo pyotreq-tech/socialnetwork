@@ -9,15 +9,18 @@ export default function WallPosts({ id, first }) {
     const [url, setUrl] = useState();
     const [authorId, setAuthorId] = useState();
     const [posts, setPosts] = useState([]);
+    const [update, setUpdate] = useState();
 
     useEffect(() => {
+        setUpdate(false);
         if (id) {
             (async () => {
                 let { data } = await axios.get(`/getWall/${id}`);
                 await setPosts(data);
             })();
         }
-    }, [id]);
+        console.log("infinite?");
+    }, [id, update]);
 
     useEffect(() => {
         if (id) {
@@ -45,8 +48,7 @@ export default function WallPosts({ id, first }) {
             content,
             image_url: url,
         });
-        await setPosts([...data, ...posts]);
-        console.log("posts: ", posts);
+        setUpdate(true);
     }
 
     return (
