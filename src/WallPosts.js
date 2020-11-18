@@ -72,10 +72,15 @@ export default function WallPosts({ id, first }) {
                             onClick={handleClick}
                             className="input-registration"
                             style={{
+                                fontSize: "0.8rem",
+                                border: "none",
                                 backgroundColor: "teal",
                                 color: "white",
-                                width: "130px",
-                                margin: "10px auto",
+                                width: "120px",
+                                height: "20px",
+                                margin: "0",
+                                backgroundImage:
+                                    "linear-gradient(to top, teal, lightsteelblue)",
                             }}
                         >
                             Post

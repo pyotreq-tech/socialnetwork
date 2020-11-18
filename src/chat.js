@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { socket } from "./socket";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Chat() {
     const chatMessages = useSelector((state) => state && state.chatMessages);
@@ -22,8 +23,18 @@ export default function Chat() {
 
     return (
         <>
-            <div className="section" style={{ height: "600px" }}>
-                <h1>Welcome to Chat</h1>
+            <div
+                className="section"
+                style={{
+                    height: "620px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                }}
+            >
+                <h1 style={{ textAlign: "center", marginTop: "0" }}>
+                    Shoutbox
+                </h1>
                 <div
                     ref={elemRef}
                     className="chatMessages"
@@ -34,30 +45,86 @@ export default function Chat() {
                             <>
                                 <div
                                     style={{
-                                        backgroundColor: "#808184",
-                                        padding: "2px 4px",
-                                        marginBottom: "3px",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "flex-start",
+                                        marginTop: "15px",
                                     }}
+                                    key={each.id}
                                 >
-                                    <p style={{ margin: "0" }}>
-                                        {each.author_id}
-                                        {each.timestamp}
-                                    </p>
-                                    <p
+                                    <div
                                         style={{
-                                            margin: "0",
+                                            display: "flex",
+                                            flexDirection: "row",
                                         }}
                                     >
-                                        {each.message}
-                                    </p>
+                                        <div
+                                            className="content chatMessage"
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                alignItems: "flex-start",
+                                            }}
+                                        >
+                                            <p
+                                                style={{
+                                                    textAlign: "left",
+                                                    margin: "3px 4px",
+                                                }}
+                                            >
+                                                <strong>
+                                                    {each.first} {each.last}
+                                                </strong>
+                                                {/* &nbsp;
+                                        {each.timestamp.slice(0, 10)}{" "}
+                                        {each.timestamp.slice(11, 16)} */}
+                                            </p>
+                                            <p style={{ margin: "3px 6px" }}>
+                                                {each.message}
+                                            </p>
+                                        </div>
+                                        <Link
+                                            to={`/user/${each.author_id}`}
+                                            style={{ alignSelf: "center" }}
+                                        >
+                                            <img
+                                                src={
+                                                    each.profileimage ||
+                                                    "/empty-image.jpg"
+                                                }
+                                                alt={
+                                                    each.first + " " + each.last
+                                                }
+                                                className={"mini-logo"}
+                                                style={{
+                                                    margin: "5px",
+                                                    marginRight: "15px",
+                                                    width: "35px",
+                                                    height: "35px",
+                                                }}
+                                            />
+                                        </Link>
+                                    </div>
                                 </div>
                             </>
                         ))}
                 </div>
-                <textarea
-                    onKeyDown={keyCheck}
-                    placeholder="type your message"
-                ></textarea>
+                <div>
+                    <textarea
+                        style={{
+                            backgroundColor: "#323436",
+                            color: "rgba(255, 255, 255, 0.8)",
+                            outline: "none",
+                            fontFamily: "Lato",
+                            marginLeft: "20px",
+                            marginTop: "15px",
+                            width: "230px",
+                            overflow: "hidden",
+                        }}
+                        onKeyDown={keyCheck}
+                        placeholder="type your message"
+                    ></textarea>
+                </div>
             </div>
         </>
     );

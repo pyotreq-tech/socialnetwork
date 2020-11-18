@@ -73,7 +73,6 @@ export default function Comments({ post_id, author_id }) {
                     </button>
                     {comments.map((each) => (
                         <div
-                            className="content"
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
@@ -98,13 +97,26 @@ export default function Comments({ post_id, author_id }) {
                                         className={"mini-logo"}
                                         style={{
                                             margin: "5px",
+                                            marginRight: "15px",
                                             width: "35px",
                                             height: "35px",
                                         }}
                                     />
                                 </Link>
-                                <div>
-                                    <p style={{ margin: "3px 4px" }}>
+                                <div
+                                    className="content"
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "flex-start",
+                                    }}
+                                >
+                                    <p
+                                        style={{
+                                            textAlign: "left",
+                                            margin: "3px 4px",
+                                        }}
+                                    >
                                         <strong>
                                             {each.first} {each.last}
                                         </strong>

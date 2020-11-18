@@ -78,8 +78,15 @@ export default class Registration extends React.Component {
                 ></input>
                 <button
                     style={{
+                        fontSize: "0.8rem",
+                        border: "none",
                         backgroundColor: "teal",
                         color: "white",
+                        width: "120px",
+                        height: "20px",
+                        margin: "0",
+                        backgroundImage:
+                            "linear-gradient(to top, teal, lightsteelblue)",
                     }}
                     className="input-registration"
                     onClick={() => this.submit()}

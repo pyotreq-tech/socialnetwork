@@ -92,7 +92,7 @@ export default class App extends React.Component {
                             className="navbar-icon"
                             onClick={() => this.toggleComponent("chatIsOn")}
                         >
-                            <i className="fab fa-speakap"></i>
+                            <i className="fab fa-stack-exchange"></i>
                         </div>
 
                         <Link to="/uploader">

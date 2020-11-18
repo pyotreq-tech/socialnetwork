@@ -199,7 +199,11 @@ exports.getOnline = (id) => {
 };
 
 exports.getShoutbox = () => {
-    return db.query(`SELECT * FROM shoutbox ORDER BY timestamp DESC LIMIT 10`);
+    // `SELECT users.profileimage AS profileimage, users.first AS first, users.last AS last, comments.post_id AS post_id, comments.author_id AS author_id, comments.timestamp AS timestamp, comments.comment AS comment FROM comments JOIN users ON author_id = users.id WHERE post_id = $1  ORDER BY timestamp DESC`,
+
+    return db.query(
+        `SELECT shoutbox.author_id AS author_id, shoutbox.message AS message, shoutbox.timestamp AS timestamp, users.profileimage AS profileimage, users.first AS first, users.last AS last FROM shoutbox JOIN users ON author_id = users.id ORDER BY timestamp DESC LIMIT 10`
+    );
 };
 
 exports.addShoutbox = (author_id, message) => {

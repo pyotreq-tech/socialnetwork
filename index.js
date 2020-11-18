@@ -237,7 +237,7 @@ app.get("/getComments/:id", async (req, res) => {
     // console.log("getcomments route hit");
     const { id } = req.params;
     const { rows } = await db.displayComments(id);
-    console.log("Display comments: ", rows);
+    // console.log("Display comments: ", rows);
     res.json(rows);
 });
 
@@ -422,10 +422,15 @@ io.on("connection", (socket) => {
     (async () => {
         const { rows } = await db.getShoutbox();
         io.sockets.emit("chatHistory", rows.reverse());
+        // console.log({ rows });
     })();
 
     socket.on("addNewMessage", async (newMsg) => {
         const { rows } = await db.addShoutbox(userId, newMsg);
+        const userData = await db.getUserDataById(userId);
+        rows[0].first = userData.rows[0].first;
+        rows[0].last = userData.rows[0].last;
+        rows[0].profileimage = userData.rows[0].profileimage;
         await io.sockets.emit("addedNewMessage", rows);
     });
 
