@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 import { socket } from "./socket";
@@ -9,6 +9,13 @@ export default function PrivateChat({ receiverId }) {
     const privateMessages = useSelector(
         (state) => state && state.privateMessages
     );
+
+    const elemRef = useRef();
+
+    useEffect(() => {
+        elemRef.current.scrollTop =
+            elemRef.current.scrollHeight - elemRef.current.clientHeight;
+    }, [privateMessages]);
 
     const keyCheck = (e) => {
         if (e.key === "Enter") {
@@ -29,11 +36,15 @@ export default function PrivateChat({ receiverId }) {
     return (
         <>
             <div class="section">
-                <h1>Welcome to the chat:</h1>
-                {privateMessages &&
-                    privateMessages.map((each) => (
-                        <PrivateMessage each={each} receiverId={receiverId} />
-                    ))}
+                <div ref={elemRef} className="private-chat-messages">
+                    {privateMessages &&
+                        privateMessages.map((each) => (
+                            <PrivateMessage
+                                each={each}
+                                receiverId={receiverId}
+                            />
+                        ))}
+                </div>
                 <textarea
                     style={{
                         backgroundColor: "#323436",

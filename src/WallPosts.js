@@ -48,6 +48,8 @@ export default function WallPosts({ id, first }) {
             content,
             image_url: url,
         });
+        document.getElementsByTagName("textarea")[0].value = "";
+        document.getElementById("wallUrl").value = "";
         setUpdate(true);
     }
 
@@ -69,11 +71,12 @@ export default function WallPosts({ id, first }) {
                                 // marginLeft: "20px",
                                 marginTop: "15px",
                                 width: "350px",
-                                height: "200px",
+                                height: "100px",
                                 overflow: "hidden",
                             }}
                         />
                         <input
+                            id="wallUrl"
                             type="text"
                             onChange={onChangeUrl}
                             name="image_url"

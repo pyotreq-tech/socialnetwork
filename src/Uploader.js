@@ -91,8 +91,17 @@ export default class Uploader extends React.Component {
                 ></input>
                 <button
                     style={{
+                        // marginTop: "5px",
+                        fontSize: "0.8rem",
+                        border: "none",
                         backgroundColor: "teal",
                         color: "white",
+                        width: "120px",
+                        height: "20px",
+                        margin: "0",
+                        marginTop: "15px",
+                        backgroundImage:
+                            "linear-gradient(to top, teal, lightsteelblue)",
                     }}
                     className="input-registration"
                     onClick={() => this.submit()}

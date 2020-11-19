@@ -225,6 +225,16 @@ a {
 }
 
 /* Private chat styling:  */
+
+.private-chat-messages {
+    height: 450px;
+    overflow-y: scroll;
+
+    padding: 20px;
+
+    /* box-shadow: 0px 2px 8px 2px #000000; */
+}
+
 .you {
     background-color: #5c5d61;
     border-radius: 5px;
@@ -299,5 +309,25 @@ a {
     background: #32373e;
 }
 .chatMessages::-webkit-scrollbar-thumb:hover {
+    background: #808184;
+}
+
+/* Scrollbar for privatechat */
+
+.private-chat-messages::-webkit-scrollbar {
+    width: 10px;
+}
+.private-chat-messages::-webkit-scrollbar-track {
+    background: #27292b;
+}
+.private-chat-messages::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #27292b;
+}
+.private-chat-messages:hover::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #32373e;
+}
+.private-chat-messages::-webkit-scrollbar-thumb:hover {
     background: #808184;
 }

@@ -9,7 +9,7 @@ import PrivateChat from "./PrivateChat";
 export default class OtherProfile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { privateChatIsOn: true };
+        this.state = { privateChatIsOn: false };
         this.isFriend = this.isFriend.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
@@ -66,6 +66,7 @@ export default class OtherProfile extends React.Component {
                         style={{
                             border: "4px teal solid",
                             borderRadius: "50%",
+                            maxWidth: "450px",
                         }}
                     />
 

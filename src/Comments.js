@@ -34,6 +34,7 @@ export default function Comments({ post_id, author_id }) {
             comment: comment,
         });
         setUpdate(true);
+        document.getElementById("commentText").value = "";
     }
 
     return (
@@ -47,6 +48,7 @@ export default function Comments({ post_id, author_id }) {
                 <>
                     <p>Write a comment:</p>
                     <input
+                        id="commentText"
                         onChange={onChange}
                         type="text"
                         name="comment"
