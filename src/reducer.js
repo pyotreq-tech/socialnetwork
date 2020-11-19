@@ -69,5 +69,20 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    // Private Messages:
+
+    if (action.type == "PRIVATE_MESSAGES") {
+        state = Object.assign({}, state, {
+            privateMessages: action.privateMessages,
+        });
+    }
+
+    // if (action.type == "NEW_MESSAGE") {
+    //     state = {
+    //         ...state,
+    //         chatMessages: [...state.chatMessages, ...action.newMessage],
+    //     };
+    // }
+
     return state;
 }

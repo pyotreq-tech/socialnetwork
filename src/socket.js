@@ -1,13 +1,13 @@
 // src/socket.js
 
 import * as io from "socket.io-client";
-import { chatMessages, newMessage } from "./actions";
+import { chatMessages, newMessage, privateMessages } from "./actions";
 
 export let socket;
 export const init = (store) => {
     if (!socket) {
         socket = io.connect();
-
+        // console.log(privateMessages);
         // receiving a message from server
         // socket.on("welcome", (msg) => {
         //     console.log("hopefully we see this:)", msg.name);
@@ -24,6 +24,10 @@ export const init = (store) => {
         // sending message from client to server
         // socket.emit("messageFromClient", [1, 2, 3]);
     }
+
+    socket.on("sendPrivateMessages", (privateMsgs) => {
+        store.dispatch(privateMessages(privateMsgs));
+    });
 
     socket.on("chatHistory", (chatMsgs) => {
         console.log("last ten chat msgs: ", chatMsgs);

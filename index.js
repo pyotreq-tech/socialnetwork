@@ -434,8 +434,10 @@ io.on("connection", (socket) => {
         await io.sockets.emit("addedNewMessage", rows);
     });
 
-    socket.on("getPrivateMessages", (receiverId) => {
+    socket.on("getPrivateMessages", async (receiverId) => {
         console.log("event on server: ", userId, receiverId);
+        const { rows } = await db.getPrivateChat(receiverId, userId);
+        socket.emit("sendPrivateMessages", rows);
     });
 
     // sending messages to client from server

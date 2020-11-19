@@ -44,3 +44,20 @@ export function newMessage(chatMsgs) {
         newMessage: chatMsgs,
     };
 }
+
+// Private Chat:
+
+export function privateMessages(privateMessages) {
+    return {
+        type: "PRIVATE_MESSAGES",
+        privateMessages: privateMessages,
+    };
+}
+
+// export function newMessage(chatMsgs) {
+//     console.log({ chatMsgs });
+//     return {
+//         type: "NEW_MESSAGE",
+//         newMessage: chatMsgs,
+//     };
+// }
