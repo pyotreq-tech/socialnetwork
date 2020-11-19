@@ -14,8 +14,15 @@ export default function OtherFriends({ id }) {
 
     return (
         <>
-            {otherFriends && <p>Friends:</p>}
-            <div className="friends-section">
+            {otherFriends && (
+                <h3>
+                    Friends <i class="fas fa-user-friends"></i>
+                </h3>
+            )}
+            <div
+                className="friends-section"
+                style={{ marginLeft: "20px", marginBottom: "20px" }}
+            >
                 {otherFriends &&
                     otherFriends.map((each) => (
                         <div
@@ -28,6 +35,7 @@ export default function OtherFriends({ id }) {
                                 // alignSelf: "center",
                                 width: "80px",
                                 boxShadow: "none",
+                                backgroundColor: "#424446",
                             }}
                         >
                             <Link

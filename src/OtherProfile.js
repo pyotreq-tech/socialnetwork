@@ -69,19 +69,33 @@ export default class OtherProfile extends React.Component {
                             maxWidth: "450px",
                         }}
                     />
-
-                    <h2>
-                        {this.state.first} {this.state.last}
-                    </h2>
+                    <div
+                        className="content"
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            margin: "30px 0",
+                        }}
+                    >
+                        <h2 style={{ margin: "3px 6px" }}>
+                            {this.state.first} {this.state.last}
+                        </h2>
+                    </div>
                     <FriendButton
                         id={this.state.id}
                         key={this.state.id}
                         isFriend={this.isFriend}
                     />
                     {this.state.bio && (
-                        <div className="content" style={{ padding: "5px" }}>
-                            {this.state.bio}
-                        </div>
+                        <>
+                            <h3>
+                                About me <i class="fas fa-info-circle"></i>
+                            </h3>
+                            <div className="content" style={{ padding: "5px" }}>
+                                {this.state.bio}
+                            </div>
+                        </>
                     )}
                     {this.state.message == "End Friendship" && (
                         <div

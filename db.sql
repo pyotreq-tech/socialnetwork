@@ -62,4 +62,4 @@ CREATE TABLE chat(
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-UPDATE shoutbox SET message = ' I will come for a coffee I am so lonely. ☕ 🍪 ' WHERE id = 6;
+UPDATE shoutbox SET message = 'Who said it is raining? That thing looks more like a snow... ❄️❄️❄️👃' WHERE id = 9;

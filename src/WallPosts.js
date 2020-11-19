@@ -58,7 +58,11 @@ export default function WallPosts({ id, first }) {
             {isFriend && (
                 <>
                     <div className="section">
-                        <h2>Write on {first} wall </h2>
+                        <div className="content">
+                            <h2 style={{ margin: "3px 6px" }}>
+                                Write on {first} wall{" "}
+                            </h2>
+                        </div>
                         <textarea
                             placeholder="Your post goes here"
                             onChange={onChange}

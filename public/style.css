@@ -227,7 +227,7 @@ a {
 /* Private chat styling:  */
 
 .private-chat-messages {
-    height: 450px;
+    max-height: 450px;
     overflow-y: scroll;
 
     padding: 20px;

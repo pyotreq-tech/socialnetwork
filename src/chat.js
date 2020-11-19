@@ -32,7 +32,14 @@ export default function Chat() {
                     justifyContent: "center",
                 }}
             >
-                <h1 style={{ textAlign: "center", marginTop: "0" }}>
+                <h1
+                    style={{
+                        textAlign: "center",
+                        marginTop: "0",
+                        backgroundColor: "#424446",
+                        borderRadius: "5px",
+                    }}
+                >
                     Shoutbox
                 </h1>
                 <div

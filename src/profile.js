@@ -17,9 +17,17 @@ export default function Profile(props) {
                     justifyContent: "center",
                 }}
             >
-                <h1>
-                    {props.first} {props.last}
-                </h1>
+                <div class="content" style={{ marginBottom: "30px" }}>
+                    <h1
+                        style={{
+                            margin: "2px",
+                            textAlign: "center",
+                            width: "100%",
+                        }}
+                    >
+                        {props.first} {props.last}
+                    </h1>
+                </div>
                 <ProfilePicture
                     profileImage={props.profileImage}
                     first={props.first}
@@ -27,7 +35,9 @@ export default function Profile(props) {
                     classValue={"maxi-logo"}
                 />
                 <br />
-                <p>{props.bio}</p>
+                <div class="content" style={{ marginTop: "15px" }}>
+                    <p style={{ marginLeft: "15px" }}>{props.bio}</p>
+                </div>
                 <br />
                 <BioEditor
                     bio={props.bio}

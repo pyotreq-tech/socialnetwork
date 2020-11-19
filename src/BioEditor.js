@@ -65,6 +65,17 @@ export default class BioEditor extends Component {
                             onChange={(e) => this.handleChange(e)}
                             value={this.state.bioDraft}
                             className={"bio-textarea"}
+                            style={{
+                                backgroundColor: "#323436",
+                                color: "rgba(255, 255, 255, 0.8)",
+                                outline: "none",
+                                fontFamily: "Lato",
+                                // marginLeft: "20px",
+                                marginTop: "15px",
+                                width: "350px",
+                                height: "100px",
+                                overflow: "hidden",
+                            }}
                         />
                     </div>
                 )}
@@ -92,10 +103,17 @@ export default class BioEditor extends Component {
                         onClick={() => this.textareaToggle()}
                         className="input-registration"
                         style={{
+                            // marginTop: "5px",
+                            fontSize: "0.8rem",
+                            border: "none",
                             backgroundColor: "teal",
                             color: "white",
-                            width: "130px",
-                            margin: "10px auto",
+                            width: "120px",
+                            height: "20px",
+                            margin: "0",
+                            marginTop: "15px",
+                            backgroundImage:
+                                "linear-gradient(to top, teal, lightsteelblue)",
                         }}
                     >
                         Add bio!
@@ -106,10 +124,17 @@ export default class BioEditor extends Component {
                         onClick={() => this.submitBio()}
                         className="input-registration"
                         style={{
+                            // marginTop: "5px",
+                            fontSize: "0.8rem",
+                            border: "none",
                             backgroundColor: "teal",
                             color: "white",
-                            width: "130px",
-                            margin: "10px auto",
+                            width: "120px",
+                            height: "20px",
+                            margin: "0",
+                            marginTop: "15px",
+                            backgroundImage:
+                                "linear-gradient(to top, teal, lightsteelblue)",
                         }}
                     >
                         Submit bio!
