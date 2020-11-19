@@ -150,7 +150,7 @@ export default function WallPosts({ id, first }) {
                                 </p>
                             </div>
                             <img
-                                style={{ marginTop: "15px" }}
+                                style={{ marginTop: "15px", maxWidth: "450px" }}
                                 src={each.image_url}
                             ></img>
 
