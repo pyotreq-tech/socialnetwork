@@ -53,4 +53,18 @@
 --     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 -- );
 
+-- DROP TABLE IF EXISTS chat CASCADE;
+-- CREATE TABLE chat(
+--     id SERIAL PRIMARY KEY,
+--     sender_id INT REFERENCES users(id) NOT NULL,
+--     receiver_id INT REFERENCES users(id) NOT NULL,
+--     message TEXT,
+--     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
 -- INSERT INTO shoutbox (author_id, message) VALUES (1, 'Welcome');
+-- INSERT INTO chat (sender_id, receiver_id, message) VALUES (1, 212, 'Hi');
+-- INSERT INTO chat (sender_id, receiver_id, message) VALUES (212,1, 'How are you');
+-- INSERT INTO chat (sender_id, receiver_id, message) VALUES (1, 212, 'Good and you?');
+-- INSERT INTO chat (sender_id, receiver_id, message) VALUES (212,1, 'too');
+-- INSERT INTO chat (sender_id, receiver_id, message) VALUES (1, 212, 'Hi');

@@ -434,6 +434,10 @@ io.on("connection", (socket) => {
         await io.sockets.emit("addedNewMessage", rows);
     });
 
+    socket.on("getPrivateMessages", (receiverId) => {
+        console.log("event on server: ", userId, receiverId);
+    });
+
     // sending messages to client from server
 
     //socket.emit - sends a message only to one client who has connected

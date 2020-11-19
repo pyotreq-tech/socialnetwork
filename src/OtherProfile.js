@@ -2,14 +2,20 @@ import React from "react";
 import axios from "./axios";
 import FriendButton from "./FriendButton";
 import WallPosts from "./WallPosts";
+import PrivateChat from "./PrivateChat";
 
 // import Profile from "./profile";
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = { privateChatIsOn: true };
         this.isFriend = this.isFriend.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.setState({ privateChatIsOn: !this.state.privateChatIsOn });
     }
 
     isFriend(message) {
@@ -76,7 +82,22 @@ export default class OtherProfile extends React.Component {
                             {this.state.bio}
                         </div>
                     )}
+                    {this.state.message == "End Friendship" && (
+                        <div
+                            onClick={this.handleClick}
+                            style={{ textAlign: "center" }}
+                            // onClick={toggleComment}
+                        >
+                            <h3>
+                                Message <i class="fas fa-envelope"></i>
+                            </h3>
+                        </div>
+                    )}
                 </div>
+                {this.state.message == "End Friendship" &&
+                    this.state.privateChatIsOn && (
+                        <PrivateChat receiverId={this.state.id} />
+                    )}
 
                 {this.state.message == "End Friendship" && (
                     <WallPosts id={this.state.id} first={this.state.first} />

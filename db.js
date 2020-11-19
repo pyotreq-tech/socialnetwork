@@ -205,6 +205,12 @@ exports.getShoutbox = () => {
         `SELECT shoutbox.author_id AS author_id, shoutbox.message AS message, shoutbox.timestamp AS timestamp, users.profileimage AS profileimage, users.first AS first, users.last AS last FROM shoutbox JOIN users ON author_id = users.id ORDER BY timestamp DESC LIMIT 10`
     );
 };
+exports.getPrivateChat = (receiverId, senderId) => {
+    return db.query(
+        `SELECT * FROM chat WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 AND receiver_id = $1)`,
+        [receiverId, senderId]
+    );
+};
 
 exports.addShoutbox = (author_id, message) => {
     return db.query(
