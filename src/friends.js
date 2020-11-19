@@ -1,9 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getList, acceptFriend, unfriend } from "./actions";
 
 export default function Friends() {
+    const [friend, setFriend] = useState();
+    const [wannabe, setWannabe] = useState();
+    const [sen, setSen] = useState();
+
+    useEffect(() => {
+        if (friends) {
+            if (friends[0]) {
+                setFriend(true);
+            } else {
+                setFriend(false);
+            }
+        }
+        if (wannabes) {
+            if (wannabes[0]) {
+                setWannabe(true);
+            } else {
+                setWannabe(false);
+            }
+        }
+        if (sentRequests) {
+            if (sentRequests[0]) {
+                setSen(true);
+            } else {
+                setSen(false);
+            }
+        }
+    });
+
     const dispatch = useDispatch();
 
     let friends = useSelector(
@@ -28,7 +56,9 @@ export default function Friends() {
 
     return (
         <>
-            <h1 style={{ textAlign: "center" }}> Friends requests: </h1>
+            {wannabe && (
+                <h1 style={{ textAlign: "center" }}> Friends requests: </h1>
+            )}
             <div
                 style={{
                     display: "flex",
@@ -113,7 +143,7 @@ export default function Friends() {
                     ))}
             </div>
 
-            <h1 style={{ textAlign: "center" }}> Sent requests: </h1>
+            {sen && <h1 style={{ textAlign: "center" }}> Sent requests: </h1>}
             <div
                 style={{
                     display: "flex",
@@ -178,7 +208,7 @@ export default function Friends() {
                     ))}
             </div>
 
-            {friends && <h1 style={{ textAlign: "center" }}> Friends: </h1>}
+            {friend && <h1 style={{ textAlign: "center" }}> Friends: </h1>}
             <div
                 style={{
                     display: "flex",
@@ -243,6 +273,12 @@ export default function Friends() {
                         </div>
                     ))}
             </div>
+            {!friend && !wannabe && !sen && (
+                <h2 style={{ textAlign: "center" }}>
+                    {" "}
+                    Currently you have no friends and requests{" "}
+                </h2>
+            )}
         </>
     );
 }
