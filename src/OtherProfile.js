@@ -111,7 +111,10 @@ export default class OtherProfile extends React.Component {
                 </div>
                 {this.state.message == "End Friendship" &&
                     this.state.privateChatIsOn && (
-                        <PrivateChat receiverId={this.state.id} />
+                        <PrivateChat
+                            first={this.state.first}
+                            receiverId={this.state.id}
+                        />
                     )}
 
                 {this.state.message == "End Friendship" && (

@@ -35,9 +35,13 @@ export default function Profile(props) {
                     classValue={"maxi-logo"}
                 />
                 <br />
-                <div class="content" style={{ marginTop: "15px" }}>
-                    <p style={{ marginLeft: "15px" }}>{props.bio}</p>
-                </div>
+
+                {props.bio && (
+                    <div class="content" style={{ marginTop: "15px" }}>
+                        <p style={{ marginLeft: "15px" }}>{props.bio}</p>
+                    </div>
+                )}
+
                 <br />
                 <BioEditor
                     bio={props.bio}

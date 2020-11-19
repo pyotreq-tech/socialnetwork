@@ -5,12 +5,23 @@ import { socket } from "./socket";
 import { useSelector } from "react-redux";
 import PrivateMessage from "./PrivateMessage";
 
-export default function PrivateChat({ receiverId }) {
+export default function PrivateChat({ receiverId, first }) {
+    const [ifEmpty, setIfEmpty] = useState();
     const privateMessages = useSelector(
         (state) => state && state.privateMessages
     );
 
     const elemRef = useRef();
+
+    useEffect(() => {
+        if (privateMessages) {
+            if (privateMessages[0]) {
+                setIfEmpty(false);
+            } else {
+                setIfEmpty(true);
+            }
+        }
+    });
 
     useEffect(() => {
         elemRef.current.scrollTop =
@@ -36,6 +47,7 @@ export default function PrivateChat({ receiverId }) {
     return (
         <>
             <div class="section">
+                {ifEmpty && <h2>Say hi to {first}:</h2>}
                 <div ref={elemRef} className="private-chat-messages">
                     {privateMessages &&
                         privateMessages.map((each) => (
