@@ -1,7 +1,12 @@
 // src/socket.js
 
 import * as io from "socket.io-client";
-import { chatMessages, newMessage, privateMessages } from "./actions";
+import {
+    chatMessages,
+    newMessage,
+    privateMessages,
+    privateMessage,
+} from "./actions";
 
 export let socket;
 export const init = (store) => {
@@ -27,6 +32,9 @@ export const init = (store) => {
 
     socket.on("sendPrivateMessages", (privateMsgs) => {
         store.dispatch(privateMessages(privateMsgs));
+    });
+    socket.on("sendPrivateMessage", (privateMsg) => {
+        store.dispatch(privateMessage(privateMsg));
     });
 
     socket.on("chatHistory", (chatMsgs) => {

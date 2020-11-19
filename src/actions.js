@@ -44,6 +44,12 @@ export function newMessage(chatMsgs) {
         newMessage: chatMsgs,
     };
 }
+export function privateMessage(chatMsgs) {
+    return {
+        type: "NEW_PRIVATE_MESSAGE",
+        privateMessage: chatMsgs,
+    };
+}
 
 // Private Chat:
 

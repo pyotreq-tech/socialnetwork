@@ -406,6 +406,8 @@ io.on("connection", (socket) => {
 
     (async () => {
         const { rows } = await db.getOnline(userId);
+        rows[0].userSocket = socket.id;
+        // console.log("rows with socket and cookie: ", rows[0]);
         online.push(rows[0]);
         let onlineDisplay = [...online];
         onlineDisplay = onlineDisplay.filter(
@@ -422,7 +424,6 @@ io.on("connection", (socket) => {
     (async () => {
         const { rows } = await db.getShoutbox();
         io.sockets.emit("chatHistory", rows.reverse());
-        // console.log({ rows });
     })();
 
     socket.on("addNewMessage", async (newMsg) => {
@@ -434,8 +435,22 @@ io.on("connection", (socket) => {
         await io.sockets.emit("addedNewMessage", rows);
     });
 
+    socket.on("addNewPrivateMessage", async (newMsg) => {
+        const { receiverId, message } = newMsg;
+        const { rows } = await db.addPrivateChat(userId, receiverId, message);
+        const receiverIdSocket = online.find((obj) => {
+            return obj.id == receiverId;
+        });
+        console.log({ receiverIdSocket });
+        await socket.emit("sendPrivateMessage", rows);
+        if (receiverIdSocket) {
+            await io
+                .to(receiverIdSocket.userSocket)
+                .emit("sendPrivateMessage", rows);
+        }
+    });
+
     socket.on("getPrivateMessages", async (receiverId) => {
-        console.log("event on server: ", userId, receiverId);
         const { rows } = await db.getPrivateChat(receiverId, userId);
         socket.emit("sendPrivateMessages", rows);
     });

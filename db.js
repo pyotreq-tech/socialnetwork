@@ -218,3 +218,15 @@ exports.addShoutbox = (author_id, message) => {
         [author_id, message]
     );
 };
+exports.addPrivateChat = (sender_id, receiver_id, message) => {
+    return db.query(
+        `INSERT INTO chat (sender_id, receiver_id, message) VALUES ($1, $2, $3) RETURNING *`,
+        [sender_id, receiver_id, message]
+    );
+};
+exports.addShoutbox = (author_id, message) => {
+    return db.query(
+        `INSERT INTO shoutbox (author_id, message) VALUES ($1, $2) RETURNING *`,
+        [author_id, message]
+    );
+};

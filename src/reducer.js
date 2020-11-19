@@ -77,12 +77,15 @@ export default function reducer(state = {}, action) {
         });
     }
 
-    // if (action.type == "NEW_MESSAGE") {
-    //     state = {
-    //         ...state,
-    //         chatMessages: [...state.chatMessages, ...action.newMessage],
-    //     };
-    // }
+    if (action.type == "NEW_PRIVATE_MESSAGE") {
+        state = {
+            ...state,
+            privateMessages: [
+                ...state.privateMessages,
+                ...action.privateMessage,
+            ],
+        };
+    }
 
     return state;
 }
