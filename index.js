@@ -494,10 +494,10 @@ io.on("connection", (socket) => {
         //     }
         // }
 
-        if (online) {
+        if (online && toDelete) {
             const index = online.findIndex((x) => x.id == toDelete.id);
 
-            online.splice(index);
+            online.splice(index, 1);
         }
 
         onlineDisplay = [...online];
