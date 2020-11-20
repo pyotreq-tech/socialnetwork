@@ -485,9 +485,21 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {
         const toDelete = online.find((user) => user.id == userId);
 
-        online.shift(toDelete);
+        // online.shift({ toDelete });
+        // console.log("Index: ", online.findIndex(toDelete));
 
-        console.log("TO DELETE: ", toDelete);
+        // if (online.length > 0) {
+        //     function isBigEnough(element) {
+        //         return (element.id = toDelete.id);
+        //     }
+        // }
+
+        if (online) {
+            const index = online.findIndex((x) => x.id == toDelete.id);
+
+            online.splice(index);
+        }
+
         onlineDisplay = [...online];
         onlineDisplay = onlineDisplay.filter(
             (onlineDisplay, index, self) =>
