@@ -6,6 +6,7 @@ import {
     newMessage,
     privateMessages,
     privateMessage,
+    onlineUsers,
 } from "./actions";
 
 export let socket;
@@ -47,7 +48,8 @@ export const init = (store) => {
         store.dispatch(newMessage(chatMsgs));
     });
 
-    // socket.on("onlineUsers", (onlineUsers) => {
-    //     console.log({ onlineUsers });
-    // });
+    socket.on("onlineUsers", (users) => {
+        console.log({ users });
+        store.dispatch(onlineUsers(users));
+    });
 };

@@ -59,6 +59,12 @@ export function privateMessages(privateMessages) {
         privateMessages: privateMessages,
     };
 }
+export function onlineUsers(users) {
+    return {
+        type: "ONLINE_USERS",
+        onlineUsers: users,
+    };
+}
 
 // export function newMessage(chatMsgs) {
 //     console.log({ chatMsgs });

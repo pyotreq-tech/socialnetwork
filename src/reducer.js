@@ -87,5 +87,11 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "ONLINE_USERS") {
+        state = Object.assign({}, state, {
+            onlineUsers: action.onlineUsers,
+        });
+    }
+
     return state;
 }

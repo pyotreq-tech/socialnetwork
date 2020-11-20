@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
+import { socket } from "./socket";
+import { useSelector } from "react-redux";
 
 export default function FindPeople() {
     const [noResult, setNoResult] = useState();
     const [user, setUser] = useState();
     const [threeUsers, setThreeUsers] = useState([]);
     const [users, setUsers] = useState([]);
+    const onlineUsers = useSelector((state) => state && state.onlineUsers);
 
     useEffect(() => {
         (async () => {
             let { data } = await axios.get("/api/users");
             await setThreeUsers(data);
+            console.log({ onlineUsers });
         })();
     }, []);
 
@@ -130,6 +134,42 @@ export default function FindPeople() {
             )}
             {!user && (
                 <>
+                    <h1 style={{ textAlign: "center" }}>Currently Online:</h1>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            flexWrap: "wrap",
+                            justifyContent: "center",
+                        }}
+                    >
+                        {onlineUsers &&
+                            onlineUsers.map((each) => (
+                                <Link to={`/user/${each.id}`}>
+                                    <img
+                                        src={
+                                            each.profileimage ||
+                                            "/empty-image.jpg"
+                                        }
+                                        alt={each.first + " " + each.last}
+                                        className={"mini-logo"}
+                                        style={{ marginRight: "15px" }}
+                                    />
+                                    <div
+                                        style={{
+                                            position: "relative",
+                                            width: "8px",
+                                            height: "8px",
+                                            backgroundColor: "green",
+                                            borderRadius: "250%",
+                                            top: "-12px",
+                                            left: "35px",
+                                            border: "1px solid white",
+                                        }}
+                                    ></div>
+                                </Link>
+                            ))}
+                    </div>
                     <h1 style={{ textAlign: "center" }}>Joined recently:</h1>
 
                     {threeUsers.map((each) => (

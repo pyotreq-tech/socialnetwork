@@ -441,7 +441,7 @@ io.on("connection", (socket) => {
         const receiverIdSocket = online.find((obj) => {
             return obj.id == receiverId;
         });
-        console.log({ receiverIdSocket });
+        // console.log({ receiverIdSocket });
         await socket.emit("sendPrivateMessage", rows);
         if (receiverIdSocket) {
             await io
@@ -484,7 +484,10 @@ io.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
         const toDelete = online.find((user) => user.id == userId);
+
         online.shift(toDelete);
+
+        console.log("TO DELETE: ", toDelete);
         onlineDisplay = [...online];
         onlineDisplay = onlineDisplay.filter(
             (onlineDisplay, index, self) =>
