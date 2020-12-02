@@ -13,7 +13,7 @@ const path = require("path");
 const s3 = require("./s3");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
-    origins: "localhost:8080 pyotreq-socialnetwork.herokuapp.com:*",
+    origins: "localhost:8080 https://pyotreq-socialnetwork.herokuapp.com:*",
 });
 
 app.use(express.json());
