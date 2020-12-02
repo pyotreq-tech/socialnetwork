@@ -61,5 +61,3 @@ CREATE TABLE chat(
     message TEXT,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-UPDATE shoutbox SET message = 'Who said it is raining? That thing looks more like a snow... ❄️❄️❄️👃' WHERE id = 9;

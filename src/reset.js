@@ -41,6 +41,7 @@ export default class ResetPassword extends React.Component {
                 <>
                     <h2>Please enter the code you received:</h2>
                     <input
+                        key="1"
                         name="code"
                         placeholder="code..."
                         onChange={(e) => this.handleChange(e)}
