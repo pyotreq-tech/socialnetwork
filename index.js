@@ -74,6 +74,61 @@ const uploader = multer({
     },
 });
 
+app.get("/welcome", (req, res) => {
+    if (req.session.userId) {
+        res.redirect("/");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
+
+app.post("/register", (req, res) => {
+    const { first, last, email, password } = req.body;
+    bcrypt
+        .hash(password)
+        .then((hash) => {
+            return db.addUser(first, last, email, hash);
+        })
+        .then((result) => {
+            const { id } = result.rows[0];
+            req.session.userId = id;
+
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("error post /register route: ", err);
+            res.json({ success: false });
+        });
+});
+
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+    db.getUserData(email)
+        .then(({ rows }) => {
+            console.log(rows);
+            const { id } = rows[0];
+            const hash = rows[0].password;
+            bcrypt
+                .compare(password, hash)
+                .then((result) => {
+                    if (result) {
+                        req.session.userId = id;
+                        res.json({ success: true });
+                    } else {
+                        res.json({ success: false });
+                    }
+                })
+                .catch((err) => {
+                    console.log("error in post /login: ", err);
+                    res.json({ success: false });
+                });
+        })
+        .catch((err) => {
+            console.log("error in post /login: ", err);
+            res.json({ success: false });
+        });
+});
+
 app.post("/images", uploader.single("file"), s3.upload, (req, res) => {
     if (req.file) {
         const { id } = req.body;
@@ -326,61 +381,6 @@ app.post("/password/reset/verify", (req, res) => {
             });
         }
     });
-});
-
-app.post("/register", (req, res) => {
-    const { first, last, email, password } = req.body;
-    bcrypt
-        .hash(password)
-        .then((hash) => {
-            return db.addUser(first, last, email, hash);
-        })
-        .then((result) => {
-            const { id } = result.rows[0];
-            req.session.userId = id;
-
-            res.json({ success: true });
-        })
-        .catch((err) => {
-            console.log("error post /register route: ", err);
-            res.json({ success: false });
-        });
-});
-
-app.post("/login", (req, res) => {
-    const { email, password } = req.body;
-    db.getUserData(email)
-        .then(({ rows }) => {
-            console.log(rows);
-            const { id } = rows[0];
-            const hash = rows[0].password;
-            bcrypt
-                .compare(password, hash)
-                .then((result) => {
-                    if (result) {
-                        req.session.userId = id;
-                        res.json({ success: true });
-                    } else {
-                        res.json({ success: false });
-                    }
-                })
-                .catch((err) => {
-                    console.log("error in post /login: ", err);
-                    res.json({ success: false });
-                });
-        })
-        .catch((err) => {
-            console.log("error in post /login: ", err);
-            res.json({ success: false });
-        });
-});
-
-app.get("/welcome", (req, res) => {
-    if (req.session.userId) {
-        res.redirect("/");
-    } else {
-        res.sendFile(__dirname + "/index.html");
-    }
 });
 
 app.get("/logout", (req, res) => {
