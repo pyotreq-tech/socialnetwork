@@ -388,7 +388,6 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 });
 app.get("*", function (req, res) {
-    // console.log("LOLLLL");
     if (!req.session.userId) {
         res.redirect("/welcome");
     } else {
