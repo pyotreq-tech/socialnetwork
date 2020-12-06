@@ -11,7 +11,7 @@ export default function ProfilePicture({
     return (
         <>
             <img
-                src={profileImage || "/empty-image.jpg"}
+                src={profileImage || "./empty-image.JPG"}
                 alt={first + " " + last}
                 onClick={() => toggleComponent("uploaderIsVisible")}
                 className={classValue}
